@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shambhav — Alumni Command Center</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            cloudy: {
+              50: '#F4F8FB',
+              100: '#E6EFF6',
+              200: '#D0E2EF',
+              300: '#A9CBE2',
+              400: '#75A9CE',
+              500: '#4F8FBD',
+              600: '#3873A2',
+              700: '#2C5C83',
+              800: '#234A69',
+              900: '#1B3A53',
+              950: '#102334',
+            },
+            mist: {
+              50: '#F8FAFC',
+              100: '#F1F5F9',
+              200: '#E2E8F0',
+              300: '#CBD5E1',
+            },
+            accentAmber: '#F59E0B',
+            canvasBg: '#F5F8FB',
+            darkText: '#102334',
+            mutedText: '#627D98',
+            softBorder: '#E2ECF3',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    .active-nav {
+      background-color: #EBF3F9 !important;
+      color: #234A69 !important;
+      font-weight: 700 !important;
+      border-right: 3px solid #3873A2;
+    }
+    .active-nav i {
+      color: #3873A2 !important;
+    }
+  </style>
+</head>
+<body class="bg-canvasBg text-darkText font-sans antialiased overflow-x-hidden selection:bg-cloudy-200 selection:text-cloudy-900">
+
+  <div class="flex min-h-screen">
+
+    <!-- ======================================================== -->
+    <!-- LEFT SIDEBAR                                             -->
+    <!-- ======================================================== -->
+    <aside class="w-64 bg-white border-r border-softBorder fixed top-0 bottom-0 left-0 z-40 flex flex-col justify-between py-6 select-none transition-all duration-300">
+      
+      <!-- Top Section -->
+      <div>
+        <!-- Logo -->
+        <div class="px-6 pb-6 flex items-center gap-3 border-b border-softBorder">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cloudy-800 to-cloudy-500 flex items-center justify-center text-white shadow-md shadow-cloudy-600/20">
+            <i data-lucide="compass" class="w-5 h-5 text-cloudy-100"></i>
+          </div>
+          <div>
+            <span class="text-lg font-extrabold tracking-tight text-darkText block leading-tight">Shambhav</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-cloudy-700">Alumni Hub</span>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="mt-5 px-3 space-y-1">
+          <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-item active-nav w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="layout-grid" class="w-4 h-4 text-mutedText"></i>
+            <span>Overview</span>
+          </button>
+
+          <button onclick="navigateTo('mentorship')" id="nav-mentorship" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <div class="flex items-center gap-3">
+              <i data-lucide="users" class="w-4 h-4 text-mutedText"></i>
+              <span>Mentorship</span>
+            </div>
+            <span class="bg-cloudy-700 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">2</span>
+          </button>
+
+          <button onclick="navigateTo('talent')" id="nav-talent" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="user-search" class="w-4 h-4 text-mutedText"></i>
+            <span>Hire Talent</span>
+          </button>
+
+          <button onclick="navigateTo('messages')" id="nav-messages" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <div class="flex items-center gap-3">
+              <i data-lucide="message-square" class="w-4 h-4 text-mutedText"></i>
+              <span>Messages</span>
+            </div>
+            <span class="bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">New</span>
+          </button>
+
+          <button onclick="navigateTo('sessions')" id="nav-sessions" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="video" class="w-4 h-4 text-mutedText"></i>
+            <span>My Sessions</span>
+          </button>
+
+          <button onclick="navigateTo('documents')" id="nav-documents" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="file-check-2" class="w-4 h-4 text-mutedText"></i>
+            <span>Documents</span>
+          </button>
+
+          <button onclick="navigateTo('startups')" id="nav-startups" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <div class="flex items-center gap-3">
+              <i data-lucide="rocket" class="w-4 h-4 text-mutedText"></i>
+              <span>Student Startups</span>
+            </div>
+            <span class="w-2 h-2 rounded-full bg-accentAmber"></span>
+          </button>
+
+          <button onclick="showToast('Alumni network & batchmate circles opened.')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="network" class="w-4 h-4 text-mutedText"></i>
+            <span>Alumni Network</span>
+          </button>
+
+          <button onclick="showToast('Settings & preferences opened.')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="settings" class="w-4 h-4 text-mutedText"></i>
+            <span>Settings</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Bottom Profile Section -->
+      <div class="px-4">
+        <div class="p-3 bg-cloudy-50/70 rounded-2xl border border-softBorder flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-cloudy-700 text-white font-bold flex items-center justify-center text-xs shadow-sm">
+              SH
+            </div>
+            <div>
+              <p class="text-xs font-bold text-darkText leading-tight">Shambhav</p>
+              <p class="text-[10px] text-mutedText font-medium">Alum • Class of '19</p>
+            </div>
+          </div>
+          <a href="/logout" title="Logout" class="text-mutedText hover:text-rose-600 p-1.5 rounded-lg hover:bg-white transition">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ======================================================== -->
+    <!-- MAIN CONTENT AREA                                        -->
+    <!-- ======================================================== -->
+    <div class="flex-1 ml-64 flex flex-col min-h-screen">
+      
+      <!-- TOP HEADER BAR -->
+      <header class="bg-white/95 backdrop-blur-md sticky top-0 z-30 border-b border-softBorder px-8 py-4 flex items-center justify-between">
+        <div>
+          <h1 class="text-lg font-bold text-darkText flex items-center gap-2">
+            <span>Good morning, Shambhav</span>
+            <span class="text-xl">👋</span>
+          </h1>
+          <p class="text-xs text-mutedText mt-0.5">Stay connected. Give back. Hire talent from your campus.</p>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Quick Search -->
+          <div class="relative w-72">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-mutedText absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              placeholder="Search talent, startups, batchmates..." 
+              class="w-full text-xs bg-cloudy-50/60 border border-softBorder rounded-full pl-9 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-cloudy-300 focus:border-cloudy-500 text-darkText placeholder-mutedText"
+            />
+          </div>
+
+          <!-- Notification Dropdown Button -->
+          <div class="relative">
+            <button onclick="toggleNotificationPanel()" class="w-9 h-9 rounded-full bg-cloudy-50/80 border border-softBorder flex items-center justify-center text-mutedText hover:text-darkText relative hover:bg-cloudy-100 transition">
+              <i data-lucide="bell" class="w-4 h-4"></i>
+              <span class="w-2 h-2 rounded-full bg-accentAmber absolute top-1.5 right-2 ring-2 ring-white"></span>
+            </button>
+
+            <!-- Notification Drawer -->
+            <div id="notif-panel" class="hidden absolute right-0 mt-3 w-80 bg-white rounded-2xl shadow-xl border border-softBorder p-4 space-y-3 z-50">
+              <div class="flex items-center justify-between pb-2 border-b border-softBorder">
+                <span class="text-xs font-bold text-darkText">Notifications</span>
+                <span class="text-[10px] text-cloudy-700 font-semibold cursor-pointer hover:underline">Mark all as read</span>
+              </div>
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-xl bg-cloudy-50 border border-cloudy-100">
+                  <p class="font-semibold text-darkText">Aarav requested a 30m session</p>
+                  <p class="text-[11px] text-mutedText mt-0.5">Product Management Guidance • Earn ₹750</p>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <p class="font-semibold text-darkText">Dr. Neha Sharma sent a message</p>
+                  <p class="text-[11px] text-mutedText mt-0.5">Alumni guest lecture invitation.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Document Action -->
+          <button onclick="openDocumentModal()" class="text-xs font-bold px-3.5 py-2 rounded-full bg-cloudy-800 hover:bg-cloudy-900 text-white transition flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="file-plus" class="w-3.5 h-3.5"></i>
+            <span>Request Doc</span>
+          </button>
+
+          <!-- User Pill -->
+          <div class="flex items-center gap-2 pl-2 border-l border-softBorder">
+            <div class="w-9 h-9 rounded-full bg-cloudy-700 text-white font-bold text-xs flex items-center justify-center ring-2 ring-cloudy-100">
+              SH
+            </div>
+            <div class="hidden sm:block text-left">
+              <p class="text-xs font-bold text-darkText leading-tight">Shambhav</p>
+              <p class="text-[10px] text-brand-600 font-semibold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Verified Alum
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 1: MAIN ALUMNI DASHBOARD                          -->
+      <!-- ====================================================== -->
+      <section id="view-dashboard" class="dashboard-view p-8 flex-1">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- LEFT / MAIN COLUMN (8 COLS) -->
+          <div class="lg:col-span-8 space-y-8">
+            
+            <!-- 1. CLOUDY HERO BANNER -->
+            <div class="rounded-3xl p-7 bg-gradient-to-br from-cloudy-900 via-cloudy-800 to-cloudy-600 text-white relative overflow-hidden shadow-lg shadow-cloudy-900/10">
+              <div class="absolute -right-8 -bottom-8 w-64 h-64 bg-cloudy-400/20 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                <div class="max-w-md space-y-3">
+                  <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[11px] font-bold tracking-wide text-cloudy-100 border border-white/20">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cloudy-200"></i>
+                    <span>ALUMNI COMMAND CENTER • DTU NODE</span>
+                  </div>
+                  <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight text-white">
+                    Empower your junior batch today.
+                  </h2>
+                  <p class="text-xs sm:text-sm text-cloudy-100/90 leading-relaxed font-normal">
+                    You have <strong class="text-white underline font-bold">2 student mentorship requests</strong> waiting, and 12 juniors matching your hiring criteria.
+                  </p>
+
+                  <div class="pt-2 flex flex-wrap items-center gap-3">
+                    <button onclick="navigateTo('mentorship')" class="bg-white text-cloudy-950 hover:bg-cloudy-50 font-bold text-xs px-5 py-2.5 rounded-full transition shadow-sm active:scale-95">
+                      Review Requests (2)
+                    </button>
+                    <button onclick="navigateTo('talent')" class="bg-cloudy-950/60 hover:bg-cloudy-950 text-white border border-white/20 font-semibold text-xs px-5 py-2.5 rounded-full transition active:scale-95">
+                      Explore Talent
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Snapshot Widget (Cloudy Frosted Glass) -->
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/15 w-full sm:w-64 space-y-2 text-xs">
+                  <p class="font-bold uppercase tracking-wider text-[10px] text-cloudy-200">Today's Attention</p>
+                  
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/10 text-white/90">
+                    <span class="font-medium text-cloudy-200">Session</span>
+                    <span class="font-semibold text-white">04:00 PM (Aarav)</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/25 border border-white/30 text-white shadow-sm">
+                    <span class="font-semibold text-cloudy-100">Month Payout</span>
+                    <span class="font-bold text-white">₹18,500</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/10 text-white/90">
+                    <span class="font-medium text-cloudy-200">Hiring</span>
+                    <span class="font-semibold text-white">2 in Final Interview</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. QUICK ACTIONS (4 COMPACT CLEAN CARDS) -->
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-base font-bold text-darkText">What Needs Your Attention</h3>
+                  <p class="text-xs text-mutedText">Pending requests from students and college registrar</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                <!-- Card 1 -->
+                <div class="bg-white p-4 rounded-2xl border border-softBorder shadow-sm space-y-2 hover:border-cloudy-300 transition">
+                  <span class="text-[10px] font-bold text-cloudy-700 uppercase">Mentorship</span>
+                  <p class="text-xs font-bold text-darkText">2 student requests waiting</p>
+                  <button onclick="navigateTo('mentorship')" class="text-xs font-bold text-cloudy-800 hover:underline pt-1 inline-block">Review →</button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-4 rounded-2xl border border-softBorder shadow-sm space-y-2 hover:border-cloudy-300 transition">
+                  <span class="text-[10px] font-bold text-accentAmber uppercase">Hiring</span>
+                  <p class="text-xs font-bold text-darkText">12 match hiring criteria</p>
+                  <button onclick="navigateTo('talent')" class="text-xs font-bold text-cloudy-800 hover:underline pt-1 inline-block">Find Talent →</button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-4 rounded-2xl border border-softBorder shadow-sm space-y-2 hover:border-cloudy-300 transition">
+                  <span class="text-[10px] font-bold text-cloudy-600 uppercase">Faculty</span>
+                  <p class="text-xs font-bold text-darkText">Dr. Sharma wants to connect</p>
+                  <button onclick="openChatWith('Dr. Neha Sharma')" class="text-xs font-bold text-cloudy-800 hover:underline pt-1 inline-block">Connect →</button>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-4 rounded-2xl border border-softBorder shadow-sm space-y-2 hover:border-cloudy-300 transition">
+                  <span class="text-[10px] font-bold text-emerald-600 uppercase">Documents</span>
+                  <p class="text-xs font-bold text-darkText">1 transcript stamped</p>
+                  <button onclick="navigateTo('documents')" class="text-xs font-bold text-cloudy-800 hover:underline pt-1 inline-block">Download →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. INCOMING MENTORSHIP REQUESTS (INTERACTIVE) -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-base font-bold text-darkText">Students Looking for You</h3>
+                  <p class="text-xs text-mutedText">1:1 bookings aligned with your Product and Engineering background</p>
+                </div>
+                <button onclick="navigateTo('mentorship')" class="text-xs font-bold text-cloudy-700 hover:underline">View All →</button>
+              </div>
+
+              <div class="space-y-3">
+                <!-- Request 1 -->
+                <div id="req-aarav" class="p-4 rounded-2xl border border-softBorder bg-cloudy-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-cloudy-100 text-cloudy-800 font-bold flex items-center justify-center text-sm">AS</div>
+                    <div>
+                      <h4 class="text-xs font-bold text-darkText">Aarav Sharma <span class="text-[11px] font-normal text-mutedText ml-1">• CS Final Year</span></h4>
+                      <p class="text-xs text-cloudy-800 font-semibold mt-0.5">"Product Management Career Guidance & Case Prep"</p>
+                      <div class="flex gap-2 text-[10px] text-mutedText mt-1">
+                        <span>30 min session</span>
+                        <span>•</span>
+                        <span class="font-bold text-accentAmber">Earn ₹750</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button onclick="acceptRequest('Aarav Sharma', 'req-aarav')" class="px-4 py-2 rounded-xl bg-cloudy-800 hover:bg-cloudy-900 text-white text-xs font-bold transition">Accept</button>
+                    <button onclick="declineRequest('req-aarav')" class="px-3 py-2 rounded-xl bg-white border border-softBorder text-mutedText hover:text-darkText text-xs font-medium transition">Decline</button>
+                  </div>
+                </div>
+
+                <!-- Request 2 -->
+                <div id="req-riya" class="p-4 rounded-2xl border border-softBorder bg-cloudy-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-cloudy-100 text-cloudy-800 font-bold flex items-center justify-center text-sm">RM</div>
+                    <div>
+                      <h4 class="text-xs font-bold text-darkText">Riya Mehta <span class="text-[11px] font-normal text-mutedText ml-1">• MBA Final Year</span></h4>
+                      <p class="text-xs text-cloudy-800 font-semibold mt-0.5">"Consulting Case Interview & Resume Critique"</p>
+                      <div class="flex gap-2 text-[10px] text-mutedText mt-1">
+                        <span>45 min session</span>
+                        <span>•</span>
+                        <span class="font-bold text-accentAmber">Earn ₹900</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button onclick="acceptRequest('Riya Mehta', 'req-riya')" class="px-4 py-2 rounded-xl bg-cloudy-800 hover:bg-cloudy-900 text-white text-xs font-bold transition">Accept</button>
+                    <button onclick="declineRequest('req-riya')" class="px-3 py-2 rounded-xl bg-white border border-softBorder text-mutedText hover:text-darkText text-xs font-medium transition">Decline</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. FEATURED STUDENT TALENT (FOR HIRING) -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-base font-bold text-darkText">Talent You May Want to Hire</h3>
+                  <p class="text-xs text-mutedText">Top students available for summer internships and full-time roles</p>
+                </div>
+                <button onclick="navigateTo('talent')" class="text-xs font-bold text-cloudy-700 hover:underline">All Candidates →</button>
+              </div>
+
+              <div class="p-4 rounded-2xl border border-softBorder bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-11 h-11 rounded-2xl bg-cloudy-100 text-cloudy-800 font-bold flex items-center justify-center text-sm">AS</div>
+                  <div>
+                    <h4 class="text-xs font-bold text-darkText">Ananya Singh <span class="text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-bold ml-1">Resume: 94%</span></h4>
+                    <p class="text-[11px] text-mutedText">B.Tech Computer Science '27 • 9.2 CGPA</p>
+                    <div class="flex gap-1.5 mt-1.5 text-[10px]">
+                      <span class="px-2 py-0.5 bg-cloudy-50 text-cloudy-800 rounded font-medium">React</span>
+                      <span class="px-2 py-0.5 bg-cloudy-50 text-cloudy-800 rounded font-medium">Python</span>
+                      <span class="px-2 py-0.5 bg-cloudy-50 text-cloudy-800 rounded font-medium">Distributed AI</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="showToast('Viewing verified resume for Ananya Singh...')" class="px-3.5 py-2 rounded-xl border border-softBorder text-xs font-semibold hover:bg-slate-50 transition">Resume</button>
+                  <button onclick="showToast('Interview invite sent to Ananya Singh!')" class="px-4 py-2 rounded-xl bg-cloudy-800 hover:bg-cloudy-900 text-white text-xs font-bold transition">Invite to Chat</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN WIDGETS (4 COLS) -->
+          <div class="lg:col-span-4 space-y-6">
+            
+            <!-- Widget 1: Next Immediate Session -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-darkText uppercase tracking-wider">Next 1:1 Call</span>
+                <span class="text-[10px] font-bold text-cloudy-800 bg-cloudy-100 px-2.5 py-0.5 rounded-full">Today, 4:00 PM</span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-cloudy-800 text-white font-bold text-base flex items-center justify-center shadow-sm">
+                  AS
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">Aarav Sharma</h4>
+                  <p class="text-xs text-mutedText">Resume Review & Case Prep</p>
+                  <p class="text-xs font-bold text-emerald-600 mt-0.5">₹750 Paid Session</p>
+                </div>
+              </div>
+
+              <button onclick="showToast('Launching encrypted meeting room link...')" class="w-full py-2.5 rounded-xl bg-cloudy-800 hover:bg-cloudy-900 text-white font-bold text-xs transition shadow-sm flex items-center justify-center gap-1.5">
+                <i data-lucide="video" class="w-4 h-4"></i>
+                <span>Join Google Meet Room</span>
+              </button>
+            </div>
+
+            <!-- Widget 2: Mentorship Earnings Snapshot -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold text-darkText uppercase tracking-wider">Earnings (October)</h4>
+                <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Auto-Payout</span>
+              </div>
+
+              <div class="flex items-baseline justify-between">
+                <span class="text-3xl font-extrabold text-cloudy-900">₹18,500</span>
+                <span class="text-xs font-bold text-accentAmber">Pending: ₹3,250</span>
+              </div>
+
+              <div class="w-full h-2 rounded-full bg-cloudy-100 overflow-hidden">
+                <div class="h-full rounded-full bg-cloudy-600 w-[75%]"></div>
+              </div>
+
+              <p class="text-[11px] text-mutedText flex items-center justify-between">
+                <span>Completed: 24 calls</span>
+                <span class="font-semibold text-darkText">Next payout: Friday</span>
+              </p>
+            </div>
+
+            <!-- Widget 3: Alumni Impact Card -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold text-darkText uppercase tracking-wider">Your Impact Score</h4>
+                <span class="text-xs font-extrabold text-cloudy-800 bg-cloudy-100 px-2.5 py-0.5 rounded-full">Top 5%</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 text-center">
+                <div class="p-3 bg-cloudy-50/60 rounded-xl border border-cloudy-100/60">
+                  <p class="text-xl font-extrabold text-darkText">24</p>
+                  <p class="text-[10px] font-semibold text-mutedText uppercase">Mentored</p>
+                </div>
+                <div class="p-3 bg-cloudy-50/60 rounded-xl border border-cloudy-100/60">
+                  <p class="text-xl font-extrabold text-darkText">6</p>
+                  <p class="text-[10px] font-semibold text-mutedText uppercase">Hired</p>
+                </div>
+              </div>
+
+              <p class="text-[11px] text-mutedText text-center italic">"You're helping the next generation move forward."</p>
+            </div>
+
+            <!-- Widget 4: Quick Document Retrieval -->
+            <div class="bg-gradient-to-br from-cloudy-50 via-white to-white p-6 rounded-3xl border border-cloudy-200 shadow-sm space-y-3">
+              <h4 class="text-xs font-bold text-cloudy-900 uppercase">Institutional Documents</h4>
+              <p class="text-xs text-mutedText leading-relaxed">
+                Need degree verification or consolidated transcripts stamped by registrar?
+              </p>
+              <button onclick="openDocumentModal()" class="w-full py-2 rounded-xl bg-cloudy-100 hover:bg-cloudy-200 text-cloudy-900 font-bold text-xs transition border border-cloudy-200">
+                + Request From College Desk
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 2: MENTORSHIP MARKETPLACE                         -->
+      <!-- ====================================================== -->
+      <section id="view-mentorship" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-darkText">Incoming Mentorship Requests</h2>
+              <p class="text-xs text-mutedText">Manage student requests for 1:1 career guidance, mock interviews, and code reviews</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-cloudy-800 bg-cloudy-100 px-2.5 py-0.5 rounded-full">30 Min Session</span>
+                <span class="text-sm font-bold text-accentAmber">Earn ₹750</span>
+              </div>
+              <h3 class="text-sm font-bold text-darkText">Aarav Sharma — Computer Science (Final Year)</h3>
+              <p class="text-xs text-mutedText leading-relaxed">"Looking for feedback on cracking APM roles and system design architecture questions for campus placements."</p>
+              <div class="flex gap-2 pt-2">
+                <button onclick="showToast('Aarav Sharma session confirmed! Google Meet invite dispatched.')" class="px-5 py-2 rounded-xl bg-cloudy-800 text-white font-bold text-xs hover:bg-cloudy-900 transition">Accept & Book</button>
+                <button onclick="showToast('Request dismissed.')" class="px-4 py-2 rounded-xl bg-white border border-softBorder text-mutedText hover:text-darkText font-medium text-xs transition">Decline</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 3: HIRE STUDENT TALENT                            -->
+      <!-- ====================================================== -->
+      <section id="view-talent" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-darkText">Discover Campus Talent</h2>
+              <p class="text-xs text-mutedText">Hire verified juniors directly from your alma mater</p>
+            </div>
+            <button onclick="showToast('Post internship requisition opened.')" class="px-4 py-2 rounded-xl bg-cloudy-800 text-white text-xs font-bold hover:bg-cloudy-900 transition">+ Post Role</button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-3">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">Ananya Singh</h4>
+                  <p class="text-xs text-mutedText">B.Tech CSE '27 • 9.2 CGPA</p>
+                </div>
+                <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Resume 94%</span>
+              </div>
+              <p class="text-xs text-mutedText">React, Python, Vector DBs, Distributed AI. GSOC Contributor.</p>
+              <button onclick="showToast('Interview scheduled with Ananya Singh!')" class="w-full py-2 rounded-xl bg-cloudy-800 text-white text-xs font-bold hover:bg-cloudy-900 transition">Invite to Interview</button>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-3">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">Karan Verma</h4>
+                  <p class="text-xs text-mutedText">IT Dual Degree '26 • 8.9 CGPA</p>
+                </div>
+                <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Resume 91%</span>
+              </div>
+              <p class="text-xs text-mutedText">Golang, Kubernetes, Docker, Microservices backend specialist.</p>
+              <button onclick="showToast('Interview scheduled with Karan Verma!')" class="w-full py-2 rounded-xl bg-cloudy-800 text-white text-xs font-bold hover:bg-cloudy-900 transition">Invite to Interview</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 4: MESSAGES                                       -->
+      <!-- ====================================================== -->
+      <section id="view-messages" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto bg-white rounded-3xl border border-softBorder shadow-sm overflow-hidden flex h-[600px]">
+          <div class="w-80 border-r border-softBorder flex flex-col p-4 space-y-2">
+            <h3 class="text-sm font-bold text-darkText mb-2">Conversations</h3>
+            <div onclick="selectChat('Aarav Sharma', 'Student Mentee')" class="p-3 rounded-2xl bg-cloudy-50 border border-cloudy-100 cursor-pointer flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-cloudy-700 text-white font-bold flex items-center justify-center text-xs">AS</div>
+              <div>
+                <p class="text-xs font-bold text-darkText">Aarav Sharma</p>
+                <p class="text-[11px] text-mutedText truncate">Looking forward to our 4 PM session!</p>
+              </div>
+            </div>
+            <div onclick="selectChat('Dr. Neha Sharma', 'Professor • CSE')" class="p-3 rounded-2xl hover:bg-cloudy-50/50 cursor-pointer flex items-center gap-3 transition">
+              <div class="w-9 h-9 rounded-full bg-cloudy-400 text-white font-bold flex items-center justify-center text-xs">NS</div>
+              <div>
+                <p class="text-xs font-bold text-darkText">Dr. Neha Sharma</p>
+                <p class="text-[11px] text-mutedText truncate">Alumni-Industry collaboration talk</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-1 flex flex-col justify-between bg-cloudy-50/30">
+            <div class="p-4 bg-white border-b border-softBorder flex items-center justify-between">
+              <div>
+                <h4 id="chat-header-name" class="text-xs font-bold text-darkText">Aarav Sharma</h4>
+                <p id="chat-header-role" class="text-[10px] text-emerald-600 font-semibold">● Online • Student Mentee</p>
+              </div>
+            </div>
+            <div id="chat-messages-container" class="flex-1 p-6 overflow-y-auto space-y-3 text-xs custom-scroll">
+              <div class="flex justify-start">
+                <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-softBorder max-w-sm text-darkText shadow-sm">
+                  Hi Shambhav sir! I have uploaded my PM case study notes for our 4:00 PM session.
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <div class="bg-cloudy-700 text-white p-3.5 rounded-2xl rounded-tr-none max-w-sm shadow-sm">
+                  Got it Aarav! Reviewing it right now. See you on the Meet call.
+                </div>
+              </div>
+            </div>
+            <form onsubmit="sendChatMessage(event)" class="p-3 bg-white border-t border-softBorder flex items-center gap-2">
+              <input id="chat-input" type="text" placeholder="Type a message to your mentee..." class="flex-1 text-xs border border-softBorder rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-cloudy-300" />
+              <button type="submit" class="bg-cloudy-800 hover:bg-cloudy-900 text-white p-2.5 rounded-xl transition">
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 5: MY SESSIONS                                    -->
+      <!-- ====================================================== -->
+      <section id="view-sessions" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <h2 class="text-xl font-bold text-darkText">Booked Mentorship Sessions</h2>
+          <div class="space-y-3">
+            <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm flex items-center justify-between">
+              <div>
+                <h4 class="text-sm font-bold text-darkText">1:1 Product Mentorship & Resume Review</h4>
+                <p class="text-xs text-mutedText">Mentee: Aarav Sharma • Today at 4:00 PM (30 min)</p>
+              </div>
+              <button onclick="showToast('Launching video room...')" class="px-4 py-2 rounded-xl bg-cloudy-800 text-white text-xs font-bold">Join Meeting</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 6: DOCUMENTS                                      -->
+      <!-- ====================================================== -->
+      <section id="view-documents" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-darkText">My Institutional Documents</h2>
+            <button onclick="openDocumentModal()" class="px-4 py-2 rounded-xl bg-cloudy-800 text-white text-xs font-bold">+ Request Document</button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm flex items-center justify-between">
+              <div>
+                <h4 class="text-sm font-bold text-darkText">Official Consolidated Transcript</h4>
+                <p class="text-xs text-emerald-600 font-semibold mt-0.5">✓ Verified & Ready</p>
+              </div>
+              <button onclick="showToast('Transcript downloaded.')" class="px-3.5 py-1.5 rounded-lg border border-softBorder text-xs font-bold hover:bg-slate-50">Download</button>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm flex items-center justify-between">
+              <div>
+                <h4 class="text-sm font-bold text-darkText">Degree Certificate Copy</h4>
+                <p class="text-xs text-emerald-600 font-semibold mt-0.5">✓ Verified & Ready</p>
+              </div>
+              <button onclick="showToast('Degree Certificate downloaded.')" class="px-3.5 py-1.5 rounded-lg border border-softBorder text-xs font-bold hover:bg-slate-50">Download</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 7: CAMPUS STARTUPS                                -->
+      <!-- ====================================================== -->
+      <section id="view-startups" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <h2 class="text-xl font-bold text-darkText">Campus Startups Worth Watching 🚀</h2>
+          <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-3">
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="text-base font-bold text-darkText">EduAI — Student Career Agent</h4>
+                <p class="text-xs text-mutedText">EdTech & Vector LLMs • Pre-Seed Stage</p>
+              </div>
+              <span class="text-xs font-bold text-accentAmber bg-amber-50 px-2.5 py-1 rounded-full">Seeking: ₹25L Micro-Grant</span>
+            </div>
+            <p class="text-xs text-mutedText leading-relaxed">
+              Founded by 4 DTU 3rd year students. Reached 2,500 active student users in 3 months.
+            </p>
+            <div class="flex gap-2 pt-1">
+              <button onclick="showToast('Pitch deck downloaded for review.')" class="px-4 py-2 rounded-xl bg-cloudy-800 text-white text-xs font-bold">Review Pitch Deck</button>
+              <button onclick="showToast('Connected with student founders.')" class="px-4 py-2 rounded-xl border border-softBorder text-xs font-semibold">Message Founders</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: REQUEST DOCUMENT                                  -->
+  <!-- ======================================================== -->
+  <div id="document-modal" class="fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative border border-cloudy-100">
+      <button onclick="closeDocumentModal()" class="absolute top-5 right-5 text-mutedText hover:text-darkText">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-5">
+        <h3 class="text-lg font-bold text-darkText">Request Document</h3>
+        <p class="text-xs text-mutedText">Direct electronic requisition to the University Registrar</p>
+      </div>
+
+      <form onsubmit="handleSendDocRequest(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-darkText uppercase mb-1">Document Needed</label>
+          <select id="doc-select-val" class="w-full rounded-xl border border-softBorder p-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-cloudy-300">
+            <option>Official Consolidated Transcript</option>
+            <option>Migration Certificate</option>
+            <option>Provisional Degree Verification</option>
+            <option>Medium of Instruction Certificate</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-darkText uppercase mb-1">Purpose / Agency</label>
+          <input type="text" placeholder="e.g. Higher Studies, WES evaluation, Visa application" required class="w-full rounded-xl border border-softBorder p-2.5 focus:outline-none focus:ring-2 focus:ring-cloudy-300" />
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-full bg-cloudy-800 hover:bg-cloudy-900 text-white font-bold transition shadow-md shadow-cloudy-900/10">
+          Submit Requisition
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-cloudy-950 text-white text-xs px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 border border-cloudy-800">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-msg">Action confirmed!</span>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT: LOGIC & TAB ROUTING                          -->
+  <!-- ======================================================== -->
+  <script>
+    lucide.createIcons();
+
+    // 1. Single Page View Router
+    function navigateTo(viewName) {
+      document.querySelectorAll('.dashboard-view').forEach(view => view.classList.add('hidden'));
+      document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active-nav'));
+
+      const targetView = document.getElementById(`view-${viewName}`);
+      const targetNav = document.getElementById(`nav-${viewName}`);
+
+      if (targetView) targetView.classList.remove('hidden');
+      if (targetNav) targetNav.classList.add('active-nav');
+      lucide.createIcons();
+    }
+
+    // 2. Notification Panel Toggle
+    function toggleNotificationPanel() {
+      const panel = document.getElementById('notif-panel');
+      panel.classList.toggle('hidden');
+    }
+
+    // 3. Mentorship Request Actions
+    function acceptRequest(studentName, elementId) {
+      document.getElementById(elementId).innerHTML = `
+        <div class="py-2.5 text-center w-full text-xs font-bold text-emerald-600">
+          ✓ Session confirmed with ${studentName}! Meeting link dispatched.
+        </div>
+      `;
+      showToast(`Accepted session with ${studentName}!`);
+    }
+
+    function declineRequest(elementId) {
+      document.getElementById(elementId).remove();
+      showToast("Mentorship request declined.");
+    }
+
+    // 4. Document Request Modal
+    const docModal = document.getElementById('document-modal');
+    function openDocumentModal() {
+      docModal.classList.remove('hidden');
+    }
+    function closeDocumentModal() {
+      docModal.classList.add('hidden');
+    }
+    function handleSendDocRequest(e) {
+      e.preventDefault();
+      const val = document.getElementById('doc-select-val').value;
+      closeDocumentModal();
+      showToast(`Request for '${val}' submitted to College Registrar!`);
+    }
+
+    // 5. Toast Notification
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    // 6. Direct Chat Switcher
+    function openChatWith(name) {
+      navigateTo('messages');
+      selectChat(name, 'Institutional Contact');
+    }
+
+    function selectChat(name, role) {
+      document.getElementById('chat-header-name').innerText = name;
+      document.getElementById('chat-header-role').innerText = `● Online • ${role}`;
+    }
+
+    function sendChatMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('chat-messages-container');
+      const newMsg = document.createElement('div');
+      newMsg.className = "flex justify-end";
+      newMsg.innerHTML = `<div class="bg-cloudy-700 text-white p-3.5 rounded-2xl rounded-tr-none max-w-sm shadow-sm">${text}</div>`;
+      container.appendChild(newMsg);
+      input.value = "";
+      container.scrollTop = container.scrollHeight;
+    }
+  </script>
+</body>
+</html>

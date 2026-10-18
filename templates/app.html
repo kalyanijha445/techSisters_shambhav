@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shambhav — Connect. Grow. Give Back.</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans + Instrument Serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Instrument Serif"', 'serif'],
+          },
+          colors: {
+            skyCloud: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              200: '#BAE6FD',
+              400: '#38BDF8',
+              500: '#0EA5E9',
+              900: '#0C4A6E',
+            },
+            sunsetOrange: {
+              50: '#FFF7ED',
+              100: '#FFEDD5',
+              400: '#FB923C',
+              500: '#F97316',
+              600: '#EA580C',
+              700: '#C2410C',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    header nav a, header nav button, header nav span {
+      white-space: nowrap !important;
+    }
+    .glass-initial {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 20px -2px rgba(12, 74, 110, 0.04);
+    }
+    .glass-scrolled {
+      background: rgba(255, 255, 255, 0.92) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.95) !important;
+      box-shadow: 
+        0 14px 36px -4px rgba(12, 74, 110, 0.09),
+        0 4px 12px -2px rgba(249, 115, 22, 0.05),
+        inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+      transform: translateY(-2px);
+    }
+    .dropdown-glass {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 16px 36px -6px rgba(12, 74, 110, 0.12);
+    }
+    .sky-cloud-bg {
+      background: 
+        radial-gradient(circle at 75% 35%, rgba(251, 146, 60, 0.2) 0%, rgba(254, 215, 170, 0.12) 35%, transparent 65%),
+        radial-gradient(circle at 15% 25%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+        linear-gradient(180deg, #F8FAFC 0%, #F0F9FF 50%, #FFFFFF 100%);
+    }
+    .letter-tight {
+      letter-spacing: -0.03em;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 9999px;
+    }
+
+     @keyframes botFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes arrowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .bot-floating {
+    animation: botFloat 3s ease-in-out infinite;
+  }
+
+  /* Hover par outer circular arrows smooth ghoomte hain */
+  .group:hover .orbit-arrows {
+    animation: arrowSpin 3s linear infinite;
+    transform-origin: center;
+  }
+
+  .mascot-glow {
+    filter: drop-shadow(0 10px 20px rgba(249, 115, 22, 0.45));
+  }
+  </style>
+</head>
+<body class="sky-cloud-bg min-h-screen text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-sunsetOrange-500 selection:text-white">
+
+  <!-- ======================================================== -->
+  <!-- FLOATING PILL NAVBAR                                     -->
+  <!-- ======================================================== -->
+  <header class="fixed top-5 sm:top-7 left-0 w-full z-40 flex justify-center px-4 transition-all duration-300">
+    <div id="navbar-pill" class="glass-initial w-full max-w-5xl rounded-full px-5 sm:px-7 py-3 flex items-center justify-between transition-all duration-500 ease-out">
+      
+      <!-- 1. LEFT: LOGO -->
+      <a href="{{ url_for('login') }}" class="flex items-center gap-2.5 group mr-6 lg:mr-8 flex-shrink-0">
+  <!-- Brand Logo Image with smooth hover & fallback -->
+  <div class="h-9 w-9 rounded-xl overflow-hidden flex items-center justify-center bg-white shadow-sm border border-slate-200/80 group-hover:scale-105 transition-transform duration-300">
+    <img 
+      src="{{ url_for('static', filename='logo.png') }}"; 
+      alt="Shambhav Logo" 
+      class="h-full w-full object-contain p-1"
+      onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'h-full w-full bg-gradient-to-tr from-sunsetOrange-500 to-amber-500 flex items-center justify-center text-white font-bold text-xs\'>S</div>';"
+    />
+  </div>
+
+  <!-- Brand Name & Badge -->
+  <div class="flex items-center gap-1.5">
+    <span class="text-[17px] font-bold tracking-tight text-slate-900 group-hover:text-sunsetOrange-600 transition">
+      Shambhav
+    </span>
+
+  </div>
+</a>
+
+      <!-- 2. CENTER: NAV LINKS -->
+      <nav class="hidden md:flex items-center gap-1.5 lg:gap-2 flex-1 justify-center">
+        <a href="" class="text-[13px] font-semibold text-sunsetOrange-600 bg-sunsetOrange-500/10 px-3.5 py-1.5 rounded-full transition">
+          Home
+        </a>
+
+        <!-- Dropdown: For Students -->
+        <div class="relative group">
+          <button class="flex items-center gap-1 text-[13px] font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-full hover:bg-white/60 transition">
+            <span><a href="student.html"></a>For Students</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 group-hover:rotate-180 transition-transform"></i>
+          </button>
+          
+          <div class="absolute left-0 mt-2 w-64 dropdown-glass rounded-2xl p-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 shadow-xl">
+            <a href="#ai-guidance" class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-skyCloud-50 text-slate-700 hover:text-sunsetOrange-600 transition">
+              <i data-lucide="bot" class="w-4 h-4 text-skyCloud-500"></i>
+              <div class="text-left">
+                <p class="text-xs font-semibold text-slate-800">Shambhavi AI Assistant</p>
+                <p class="text-[10px] text-slate-400">Roadmaps & Career Co-Pilot</p>
+              </div>
+            </a>
+            <button onclick="openAlumniDirectoryModal()" class="w-full flex items-center gap-2.5 p-2 rounded-xl hover:bg-skyCloud-50 text-slate-700 hover:text-sunsetOrange-600 transition text-left">
+              <i data-lucide="users" class="w-4 h-4 text-sunsetOrange-500"></i>
+              <div>
+                <p class="text-xs font-semibold text-slate-800">1:1 Mentorship Directory</p>
+                <p class="text-[10px] text-slate-400">Direct booking with seniors</p>
+              </div>
+            </button>
+            <button onclick="openDocDeskModal()" class="w-full flex items-center gap-2.5 p-2 rounded-xl hover:bg-skyCloud-50 text-slate-700 hover:text-sunsetOrange-600 transition text-left">
+              <i data-lucide="file-check" class="w-4 h-4 text-emerald-500"></i>
+              <div>
+                <p class="text-xs font-semibold text-slate-800">Document Retrieval Desk</p>
+                <p class="text-[10px] text-slate-400">Bonafides & Transcripts</p>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dropdown: For Alumni -->
+        <div class="relative group">
+          <button class="flex items-center gap-1 text-[13px] font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-full hover:bg-white/60 transition">
+            <span><a href="alumuni.html"></a>For Alumni</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 group-hover:rotate-180 transition-transform"></i>
+          </button>
+
+          <div class="absolute left-0 mt-2 w-64 dropdown-glass rounded-2xl p-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 shadow-xl">
+            <button onclick="openScheduleModal('Mentor Session')" class="w-full flex items-center gap-2.5 p-2 rounded-xl hover:bg-skyCloud-50 text-slate-700 hover:text-sunsetOrange-600 transition text-left">
+              <i data-lucide="user-check" class="w-4 h-4 text-skyCloud-500"></i>
+              <div>
+                <p class="text-xs font-semibold text-slate-800">Mentor Students</p>
+                <p class="text-[10px] text-slate-400">Share your industry insights</p>
+              </div>
+            </button>
+            <button onclick="openAngelModal()" class="w-full flex items-center gap-2.5 p-2 rounded-xl hover:bg-skyCloud-50 text-slate-700 hover:text-sunsetOrange-600 transition text-left">
+              <i data-lucide="rocket" class="w-4 h-4 text-sunsetOrange-500"></i>
+              <div>
+                <p class="text-xs font-semibold text-slate-800">Campus Angel Desk</p>
+                <p class="text-[10px] text-slate-400">Fund & advise campus startups</p>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <a href="#features" class="text-[13px] font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-full hover:bg-white/60 transition">
+          Features
+        </a>
+        <a href="#how-it-works" class="text-[13px] font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-full hover:bg-white/60 transition">
+          How It Works
+        </a>
+      </nav>
+
+      <!-- 3. RIGHT: LOG IN & CTA -->
+      <div class="flex items-center gap-2.5 ml-4 flex-shrink-0">
+        <button onclick="openModal('login')" class="hidden sm:inline-block text-[13px] font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 transition">
+          Log In
+        </button>
+        
+        <button onclick="openModal('student')" class="bg-gradient-to-r from-sunsetOrange-500 to-amber-500 hover:from-sunsetOrange-600 hover:to-amber-600 text-white text-[13px] font-semibold px-4 sm:px-5 py-2.5 rounded-full shadow-md shadow-sunsetOrange-500/25 hover:shadow-lg transition-all duration-200 active:scale-95 flex items-center gap-1.5">
+          <span><a href="{{ url_for('login') }}">Get Started</a></span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </button>
+
+        <!-- Mobile Toggle Button -->
+        <button id="mobile-btn" class="md:hidden p-2 rounded-full text-slate-700 hover:bg-white/80 transition focus:outline-none">
+          <i id="hamburger-icon" data-lucide="menu" class="w-5 h-5"></i>
+          <i id="close-icon" data-lucide="x" class="w-5 h-5 hidden"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- MOBILE ACCORDION DRAWER -->
+    <div id="mobile-drawer" class="hidden md:hidden fixed top-24 left-4 right-4 dropdown-glass rounded-3xl p-5 shadow-2xl space-y-3 z-50">
+      <a href="app.html" class="block text-sm font-semibold text-sunsetOrange-600">Home</a>
+      
+      <div class="border-l-2 border-skyCloud-400 pl-3 py-1 space-y-2">
+        <p class="text-[11px] font-bold text-skyCloud-900 uppercase tracking-wider">For Students</p>
+        <a href="#ai-guidance" class="block text-xs text-slate-600">AI Career Guidance</a>
+        <button onclick="openAlumniDirectoryModal()" class="block text-xs text-slate-600 text-left">1:1 Mentorship</button>
+        <button onclick="openDocDeskModal()" class="block text-xs text-slate-600 text-left">Document Requests</button>
+      </div>
+
+      <div class="border-l-2 border-sunsetOrange-400 pl-3 py-1 space-y-2">
+        <p class="text-[11px] font-bold text-sunsetOrange-700 uppercase tracking-wider">For Alumni</p>
+        <button onclick="openScheduleModal('Alumni Call')" class="block text-xs text-slate-600 text-left">Mentor Juniors</button>
+        <button onclick="openAngelModal()" class="block text-xs text-slate-600 text-left">Campus Angel Desk</button>
+      </div>
+
+      <a href="#features" class="block text-sm text-slate-600">Core Features</a>
+      <a href="#how-it-works" class="block text-sm text-slate-600">How It Works</a>
+
+      <div class="pt-3 border-t border-slate-200 flex flex-col gap-2">
+        <button onclick="openModal('login')" class="text-center py-2 text-xs font-semibold text-slate-700">Log In</button>
+        <button onclick="openModal('student')" class="text-center py-2.5 rounded-full bg-gradient-to-r from-sunsetOrange-500 to-amber-500 text-white text-xs font-semibold shadow-md">
+          Get Started →
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- 2-COLUMN HERO SECTION                                    -->
+  <!-- ======================================================== -->
+  <main id="home" class="relative pt-40 sm:pt-44 pb-16 max-w-6xl mx-auto px-6 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- LEFT COLUMN -->
+      <div class="lg:col-span-7 text-center lg:text-left z-10">
+        <h1 class="text-5xl sm:text-7xl font-bold text-slate-900 letter-tight leading-[1.08] mb-6">
+          The power of <br />
+          <span class="font-serif italic font-normal text-6xl sm:text-8xl text-sunsetOrange-500">
+            real connection.
+          </span>
+        </h1>
+
+        <p class="text-slate-600 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed font-normal">
+          Direct mentorship, honest portfolio critiques, and early-stage campus investments — guided by seniors who’ve paved the path.
+        </p>
+
+        <!-- BUTTON GROUP -->
+        <div class="flex items-center justify-center lg:justify-start gap-3.5">
+          <button onclick="openAlumniDirectoryModal()" class="bg-gradient-to-r from-sunsetOrange-500 to-amber-500 hover:from-sunsetOrange-600 hover:to-amber-600 text-white text-sm font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-sunsetOrange-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 active:scale-95 flex items-center gap-2">
+            <span>Explore Mentors</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+
+          <a href="#how-it-works" class="bg-white/90 hover:bg-white text-slate-800 hover:text-sunsetOrange-600 border border-slate-200/90 hover:border-sunsetOrange-300 text-sm font-semibold px-6 py-3.5 rounded-full shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 active:scale-95 flex items-center gap-2">
+            <span>How It Works</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: ILLUSTRATION -->
+      <div class="lg:col-span-5 relative flex justify-center lg:justify-end">
+        <div class="relative w-full max-w-md lg:max-w-none flex items-center justify-center">
+          <div class="absolute w-[380px] h-[380px] sm:w-[460px] sm:h-[460px] bg-gradient-to-tr from-amber-200/50 via-sunsetOrange-400/30 to-skyCloud-200/25 rounded-full blur-[70px] -z-10 pointer-events-none"></div>
+    
+          <img 
+            src="{{ url_for('static', filename='image.png') }} " 
+            alt="Student and Alumni Network" 
+            class="relative z-10 w-full h-auto object-contain max-h-[460px] drop-shadow-md mx-auto transition-transform duration-500 hover:scale-105"
+            onerror="this.onerror=null; this.src='https://illustrations.popertee.com/preview/online-networking.png';"
+          />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- FLOATING STATS BAR (FIXED COUNT-UP LOGIC)                -->
+    <!-- ======================================================== -->
+    <section class="max-w-5xl mx-auto mt-14 mb-20 relative z-20">
+      <div class="glass-initial w-full rounded-3xl sm:rounded-full px-6 sm:px-10 py-7 sm:py-8 shadow-xl shadow-slate-900/5 border border-white/95">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0">
+          
+          <!-- 1. Verified Alumni -->
+          <div class="flex flex-col items-center text-center md:border-r border-slate-200/70 md:px-4">
+            <div class="w-11 h-11 rounded-full bg-sunsetOrange-500/10 text-sunsetOrange-600 flex items-center justify-center mb-3">
+              <i data-lucide="users" class="w-5 h-5 stroke-[2.2]"></i>
+            </div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight flex items-baseline justify-center">
+              <span class="counter" data-target="500">500</span>
+              <span class="text-sunsetOrange-500 font-bold">+</span>
+            </div>
+            <p class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 mt-1">Verified Alumni</p>
+          </div>
+
+          <!-- 2. Reviews Completed -->
+          <div class="flex flex-col items-center text-center md:border-r border-slate-200/70 md:px-4">
+            <div class="w-11 h-11 rounded-full bg-amber-500/10 text-amber-600 flex items-center justify-center mb-3">
+              <i data-lucide="file-check-2" class="w-5 h-5 stroke-[2.2]"></i>
+            </div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight flex items-baseline justify-center">
+              <span class="counter" data-target="3500">3500</span>
+              <span class="text-sunsetOrange-500 font-bold">+</span>
+            </div>
+            <p class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 mt-1">Reviews & Sessions</p>
+          </div>
+
+          <!-- 3. Referral / Reply Rate -->
+          <div class="flex flex-col items-center text-center md:border-r border-slate-200/70 md:px-4">
+            <div class="w-11 h-11 rounded-full bg-skyCloud-400/15 text-skyCloud-500 flex items-center justify-center mb-3">
+              <i data-lucide="target" class="w-5 h-5 stroke-[2.2]"></i>
+            </div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight flex items-baseline justify-center">
+              <span class="counter" data-target="94">94</span>
+              <span class="text-sunsetOrange-500 font-bold">%</span>
+            </div>
+            <p class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 mt-1">Referral Response</p>
+          </div>
+
+          <!-- 4. Campus Startups -->
+          <div class="flex flex-col items-center text-center md:px-4">
+            <div class="w-11 h-11 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mb-3">
+              <i data-lucide="rocket" class="w-5 h-5 stroke-[2.2]"></i>
+            </div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight flex items-baseline justify-center">
+              <span class="counter" data-target="25">25</span>
+              <span class="text-sunsetOrange-500 font-bold">+</span>
+            </div>
+            <p class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 mt-1">Startups Backed</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- DEMO ROLE SWITCHER (FIXED ALUMNI & CAMPUS TABS)          -->
+    <!-- ======================================================== -->
+    <section class="max-w-4xl mx-auto mb-20 px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sunsetOrange-500/10 text-sunsetOrange-600 text-xs font-semibold mb-3">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+        <span>Experience the Ecosystem</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-3">
+        Tailored Workspaces for Everyone
+      </h2>
+      <p class="text-slate-500 text-sm sm:text-base max-w-xl mx-auto mb-8">
+        Switch views to preview how Sambhav adapts seamlessly to students, verified alumni, and campus administration.
+      </p>
+
+      <!-- Segmented Switcher Controls -->
+      <div class="inline-flex p-1.5 rounded-2xl bg-slate-100 border border-slate-200/80 shadow-inner max-w-full overflow-x-auto">
+        <button type="button" onclick="switchPreviewRole('student')" id="tab-student" class="role-tab px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 bg-white text-sunsetOrange-600 shadow-sm flex items-center gap-2">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+          <span>Student View</span>
+        </button>
+        <button type="button" onclick="switchPreviewRole('alumni')" id="tab-alumni" class="role-tab px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 flex items-center gap-2">
+          <i data-lucide="briefcase" class="w-4 h-4"></i>
+          <span>Alumni View</span>
+        </button>
+        <button type="button" onclick="switchPreviewRole('campus')" id="tab-campus" class="role-tab px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 flex items-center gap-2">
+          <i data-lucide="building-2" class="w-4 h-4"></i>
+          <span>Campus Desk</span>
+        </button>
+      </div>
+
+      <!-- Preview Card Showcase -->
+      <div class="mt-8 rounded-3xl p-6 sm:p-8 bg-white/90 border border-slate-200/90 shadow-xl text-left relative overflow-hidden transition-all duration-300" id="role-preview-card">
+        
+        <!-- 1. Student Mockup -->
+        <div id="content-student" class="role-content space-y-4">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-sunsetOrange-100 text-sunsetOrange-600 flex items-center justify-center font-bold">AK</div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Aarav Kumar <span class="ml-2 text-[11px] font-normal px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">3rd Year • CSE</span></h4>
+                <p class="text-xs text-slate-500">Target Role: AI Systems Engineer • Active Mentorship Track</p>
+              </div>
+            </div>
+            <button onclick="openModal('student')" class="text-xs font-semibold px-4 py-2 rounded-full bg-slate-900 text-white hover:bg-slate-800 transition">Enter Portal →</button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div onclick="openDocDeskModal()" class="cursor-pointer p-4 rounded-2xl bg-skyCloud-50 border border-skyCloud-100 hover:border-skyCloud-400 transition">
+              <div class="flex justify-between items-center">
+                <p class="text-[11px] font-bold text-skyCloud-900 uppercase">Document Request</p>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-skyCloud-500"></i>
+              </div>
+              <p class="text-sm font-semibold text-slate-800 mt-1">Official Bonafide Certificate</p>
+              <div class="mt-2 flex items-center gap-1.5 text-xs text-amber-600 font-medium">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i> Pending Registrar Sign
+              </div>
+            </div>
+            <div class="p-4 rounded-2xl bg-sunsetOrange-50 border border-sunsetOrange-100">
+              <p class="text-[11px] font-bold text-sunsetOrange-700 uppercase">AI Career Roadmap</p>
+              <p class="text-sm font-semibold text-slate-800 mt-1">Week 6: Vector DB & RAG Prep</p>
+              <p class="text-xs text-slate-500 mt-2">Curated by Shambhavi AI</p>
+            </div>
+            <div onclick="openScheduleModal('Priya Sharma (Google)')" class="cursor-pointer p-4 rounded-2xl bg-emerald-50 border border-emerald-100 hover:border-emerald-400 transition">
+              <div class="flex justify-between items-center">
+                <p class="text-[11px] font-bold text-emerald-800 uppercase">Next 1:1 Session</p>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-emerald-600"></i>
+              </div>
+              <p class="text-sm font-semibold text-slate-800 mt-1">Tomorrow with Priya (Google)</p>
+              <p class="text-xs text-emerald-600 mt-2 font-medium">Google Meet Link Ready</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Alumni Mockup -->
+        <div id="content-alumni" class="role-content space-y-4 hidden">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-skyCloud-100 text-skyCloud-600 flex items-center justify-center font-bold">PS</div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Priya Sharma <span class="ml-2 text-[11px] font-normal px-2 py-0.5 rounded-full bg-skyCloud-100 text-skyCloud-700">Batch of '21 • SDE II @ Google</span></h4>
+                <p class="text-xs text-slate-500">Verified Mentor • 14 Reviews Completed</p>
+              </div>
+            </div>
+            <button onclick="openModal('alumni')" class="text-xs font-semibold px-4 py-2 rounded-full bg-slate-900 text-white hover:bg-slate-800 transition">Enter Portal →</button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div onclick="showToast('Reviewing 3 pending junior mentorship requests...')" class="cursor-pointer p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-sunsetOrange-300 transition">
+              <p class="text-[11px] font-bold text-slate-500 uppercase">Pending Requests</p>
+              <p class="text-sm font-semibold text-slate-800 mt-1">3 Students awaiting 1:1 call</p>
+              <span class="text-xs text-sunsetOrange-600 font-semibold mt-2 inline-block">Review Requests →</span>
+            </div>
+            <div onclick="openDocDeskModal()" class="cursor-pointer p-4 rounded-2xl bg-sunsetOrange-50 border border-sunsetOrange-100 hover:border-sunsetOrange-300 transition">
+              <p class="text-[11px] font-bold text-sunsetOrange-700 uppercase">College Desk Access</p>
+              <p class="text-sm font-semibold text-slate-800 mt-1">Degree Transcript Retrieval</p>
+              <p class="text-xs text-slate-500 mt-2">Zero physical paperwork needed</p>
+            </div>
+            <div onclick="openAngelModal()" class="cursor-pointer p-4 rounded-2xl bg-amber-50 border border-amber-100 hover:border-amber-300 transition">
+              <p class="text-[11px] font-bold text-amber-800 uppercase">Angel Desk</p>
+              <p class="text-sm font-semibold text-slate-800 mt-1">2 Campus Startups Pitching</p>
+              <p class="text-xs text-amber-700 mt-2 font-medium">₹5L Seed pool active →</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Campus Admin Mockup -->
+        <div id="content-campus" class="role-content space-y-4 hidden">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-slate-900">Registrar Administration Desk <span class="ml-2 text-[11px] font-normal px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Verified Campus Node</span></h4>
+                <p class="text-xs text-slate-500">Autonomous Engineering College Portal</p>
+              </div>
+            </div>
+            <button onclick="openModal('campus')" class="text-xs font-semibold px-4 py-2 rounded-full bg-slate-900 text-white hover:bg-slate-800 transition">Enter Portal →</button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+              <p class="text-[11px] font-bold text-slate-500 uppercase">Document Queue</p>
+              <p class="text-sm font-semibold text-slate-800 mt-1"><span id="admin-pending-count">18</span> Transcripts & Bonafides</p>
+              <button onclick="bulkApproveTranscripts()" class="text-xs text-emerald-600 font-semibold mt-2 inline-block hover:underline">1-Click Bulk Digital Sign</button>
+            </div>
+            <div class="p-4 rounded-2xl bg-skyCloud-50 border border-skyCloud-100">
+              <p class="text-[11px] font-bold text-skyCloud-900 uppercase">Alumni Registry</p>
+              <p class="text-sm font-semibold text-slate-800 mt-1">520+ Verified Graduates</p>
+              <p class="text-xs text-skyCloud-600 mt-2">Active across 14 countries</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+              <p class="text-[11px] font-bold text-emerald-800 uppercase">Placement Acceleration</p>
+              <p class="text-sm font-semibold text-slate-800 mt-1">3.2x Boost in Referrals</p>
+              <p class="text-xs text-emerald-600 mt-2 font-medium">Real-time placement sync</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- INNOVATION SPOTLIGHT: "SHAMBHAVI" AI AGENT (RAG + LLM)  -->
+    <!-- ======================================================== -->
+    <section id="ai-guidance" class="max-w-6xl mx-auto my-24 px-4">
+      <div class="rounded-3xl bg-gradient-to-br from-slate-900 via-skyCloud-900 to-slate-950 p-7 sm:p-12 text-white relative overflow-hidden shadow-2xl">
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-sunsetOrange-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-skyCloud-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <!-- Left: AI Explanation -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-sunsetOrange-400 text-xs font-semibold">
+              <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+              <span>Proprietary Agent Architecture</span>
+            </div>
+
+            <h3 class="text-3xl sm:text-5xl font-bold tracking-tight leading-tight">
+              Meet <span class="font-serif italic font-normal text-sunsetOrange-400 text-4xl sm:text-6xl">Shambhavi.</span><br />
+              Your 24/7 AI Career Co-Pilot.
+            </h3>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+              Powered by RAG (Retrieval-Augmented Generation) & our campus vector database. Shambhavi analyzes real hiring patterns of your successful alumni to draft dynamic roadmaps, critique resumes, and match you with ideal mentors.
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-sunsetOrange-500/20 text-sunsetOrange-400 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <span class="text-xs sm:text-sm text-slate-200">Customized semester-by-semester milestones tailored to your target tech stack</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-sunsetOrange-500/20 text-sunsetOrange-400 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <span class="text-xs sm:text-sm text-slate-200">Contextual mentor pairing based on target companies (Google, Microsoft, startups)</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-sunsetOrange-500/20 text-sunsetOrange-400 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <span class="text-xs sm:text-sm text-slate-200">Automated prep notes sent directly to alumni before your 1:1 call</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Interactive AI Simulation -->
+          <div class="lg:col-span-6">
+            <div class="rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-5 sm:p-6 shadow-2xl space-y-4">
+              <!-- Header -->
+              <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-sunsetOrange-500 to-amber-400 flex items-center justify-center text-white">
+                    <i data-lucide="bot" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-bold text-white">Shambhavi AI Assistant</h5>
+                    <p class="text-[10px] text-emerald-400 flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Online • RAG Vector Linked
+                    </p>
+                  </div>
+                </div>
+                <span class="text-[10px] uppercase font-mono tracking-widest text-slate-400">v2.4 Live</span>
+              </div>
+
+              <!-- Chat bubbles -->
+              <div id="ai-chat-thread" class="space-y-3 text-xs">
+                <!-- User Message -->
+                <div class="flex justify-end">
+                  <div class="bg-sunsetOrange-500 text-white rounded-2xl rounded-tr-none px-4 py-2.5 max-w-[85%]">
+                    "I want to crack a Full Stack Role at a Tier-1 product company in 6 months. How should I begin?"
+                  </div>
+                </div>
+
+                <!-- AI Response -->
+                <div class="flex justify-start">
+                  <div class="bg-white/15 text-slate-100 rounded-2xl rounded-tl-none p-4 max-w-[95%] border border-white/10 space-y-2">
+                    <p class="text-slate-200">Here is your tailored trajectory based on 24 alumni who made this transition:</p>
+                    <div class="p-2.5 rounded-xl bg-slate-900/60 border border-white/10 space-y-1 text-[11px]">
+                      <p class="font-semibold text-sunsetOrange-300">Phase 1: Backend Systems & RDBMS</p>
+                      <p class="text-slate-300">FastAPI, Async Queues, DB Indexing.</p>
+                      <p class="font-semibold text-sunsetOrange-300 mt-2">Recommended Mentor:</p>
+                      <p class="text-slate-300">Rahul Verma (2020 Alum • Atlassian)</p>
+                    </div>
+                    <div class="flex items-center gap-2 pt-1">
+                      <button onclick="simulateSchedule()" id="schedule-btn" class="text-[11px] font-semibold bg-white text-slate-900 hover:bg-slate-100 px-3.5 py-1.5 rounded-full transition flex items-center gap-1">
+                        <i data-lucide="calendar" class="w-3 h-3"></i>
+                        <span>Auto-Schedule with Rahul</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Interactive prompt buttons -->
+              <div class="pt-2 border-t border-white/10 flex flex-wrap gap-2">
+                <button onclick="askShambhavi('AI & ML Roadmap')" class="text-[10px] bg-white/10 hover:bg-white/20 text-slate-300 px-2.5 py-1 rounded-full transition">🤖 Ask AI Roadmap</button>
+                <button onclick="askShambhavi('Resume Review')" class="text-[10px] bg-white/10 hover:bg-white/20 text-slate-300 px-2.5 py-1 rounded-full transition">📄 Resume Review</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 4 CORE PILLARS (INTERACTIVE ACTIONS INTEGRATED)         -->
+    <!-- ======================================================== -->
+    <section id="features" class="max-w-6xl mx-auto my-28 px-4">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="text-xs font-bold uppercase tracking-widest text-sunsetOrange-600 mb-2">Architected For Impact</p>
+        <h2 class="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight letter-tight">
+          Everything your institution was missing.
+        </h2>
+        <p class="text-slate-500 text-sm sm:text-base mt-4">
+          Replacing fragmented WhatsApp groups, physical paperwork delays, and unverified contacts with a single reliable engine.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Pillar 1 -->
+        <div onclick="openAlumniDirectoryModal()" class="cursor-pointer group p-8 rounded-3xl bg-white/80 hover:bg-white border border-slate-200/80 hover:border-sunsetOrange-300 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-2xl bg-skyCloud-100 text-skyCloud-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="shield-check" class="w-6 h-6 stroke-[2.2]"></i>
+          </div>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xl font-bold text-slate-900">1. 100% Verified Alumni Community</h3>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-sunsetOrange-600 transition"></i>
+          </div>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            No fake profiles or unresponsive inboxes. Every profile is cross-verified via institution enrollment numbers and passout registers for trusted, direct communication.
+          </p>
+          <ul class="text-xs text-slate-500 space-y-1.5">
+            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-skyCloud-500"></i> Encrypted Direct Messaging</li>
+            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-skyCloud-500"></i> Closed Domain-Specific Campus Circles</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div onclick="openDocDeskModal()" class="cursor-pointer group p-8 rounded-3xl bg-white/80 hover:bg-white border border-slate-200/80 hover:border-sunsetOrange-300 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="file-text" class="w-6 h-6 stroke-[2.2]"></i>
+          </div>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xl font-bold text-slate-900">2. Frictionless Campus Requests</h3>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-sunsetOrange-600 transition"></i>
+          </div>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            Alumni & students no longer need to travel to college for paperwork. Apply for transcripts, migration certificates, and bonafides with real-time status tracking.
+          </p>
+          <ul class="text-xs text-slate-500 space-y-1.5">
+            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-amber-500"></i> Digitally Signed Verified PDF Retrieval</li>
+            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-amber-500"></i> Zero Physical Counter Waiting Times</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div onclick="openScheduleModal('Mock Interview & Referral')" class="cursor-pointer group p-8 rounded-3xl bg-white/80 hover:bg-white border border-slate-200/80 hover:border-sunsetOrange-300 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-2xl bg-sunsetOrange-100 text-sunsetOrange-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="briefcase" class="w-6 h-6 stroke-[2.2]"></i>
+          </div>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xl font-bold text-slate-900">3. Career Support & Referrals</h3>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-sunsetOrange-600 transition"></i>
+          </div>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            Turn cold reachouts into high-conversion referral pipelines. Seniors post internal openings directly to their campus community before job boards.
+          </p>
+          <ul class="text-xs text-slate-500 space-y-1.5">
+            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-sunsetOrange-500"></i> Internal Referral Submissions</li>
+            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-sunsetOrange-500"></i> 1:1 Live Mock Interviews with Feedback</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div onclick="openAngelModal()" class="cursor-pointer group p-8 rounded-3xl bg-white/80 hover:bg-white border border-slate-200/80 hover:border-sunsetOrange-300 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="banknote" class="w-6 h-6 stroke-[2.2]"></i>
+          </div>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xl font-bold text-slate-900">4. Campus Angel Desk & Grants</h3>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-sunsetOrange-600 transition"></i>
+          </div>
+          <p class="text-slate-600 text-sm leading-relaxed mb-4">
+            Catalyze student entrepreneurship. Alumni syndicates can evaluate, mentor, and provide micro-grants to promising student-led ventures.
+          </p>
+          <ul class="text-xs text-slate-500 space-y-1.5">
+            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-500"></i> Campus Pitch Days & Private Demo Room</li>
+            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-500"></i> Transparent Milestone-Based Micro-Funding</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- UPGRADED: "HOW SAMBHAV CLOSES THE LOOP" (INTERACTIVE)   -->
+    <!-- ======================================================== -->
+    <section id="how-it-works" class="max-w-6xl mx-auto my-32 px-4 relative">
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sunsetOrange-500/10 text-sunsetOrange-600 text-xs font-semibold mb-3">
+          <i data-lucide="git-merge" class="w-3.5 h-3.5"></i>
+          <span>Tri-Party Connectivity Engine</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight letter-tight">
+          How Sambhav Closes the Loop
+        </h2>
+        <p class="text-slate-500 text-sm sm:text-base mt-3">
+          Unifying students, verified alumni, and campus administration in three interconnected steps.
+        </p>
+      </div>
+
+      <!-- Steps Grid with Connecting Line Background -->
+      <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Connecting Line (Desktop) -->
+        <div class="hidden md:block absolute top-1/2 left-[15%] right-[15%] h-0.5 -translate-y-12 bg-gradient-to-r from-sunsetOrange-400 via-slate-300 to-emerald-400 -z-0 border-t border-dashed border-slate-300"></div>
+
+        <!-- Step 1 Card -->
+        <div onclick="openModal('student')" class="cursor-pointer group relative z-10 p-7 sm:p-8 rounded-3xl bg-white/90 hover:bg-white border border-slate-200/90 hover:border-sunsetOrange-400 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 backdrop-blur-xl">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sunsetOrange-500 to-amber-500 text-white font-extrabold text-base flex items-center justify-center shadow-md shadow-sunsetOrange-500/30 group-hover:scale-110 transition-transform">
+              01
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-sunsetOrange-50 text-sunsetOrange-600 border border-sunsetOrange-200">
+              Onboarding
+            </span>
+          </div>
+
+          <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-sunsetOrange-600 transition-colors">
+            Campus Verification
+          </h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-5">
+            Users verify through institutional enrollment registers and passout databases, eliminating fake profiles and unlocking private campus workspaces.
+          </p>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-sunsetOrange-600 font-semibold">
+            <span>Verify Institution ID</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- Step 2 Card -->
+        <div onclick="openModal('student')" class="cursor-pointer group relative z-10 p-7 sm:p-8 rounded-3xl bg-white/90 hover:bg-white border border-slate-200/90 hover:border-skyCloud-400 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 backdrop-blur-xl">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-slate-900 to-skyCloud-900 text-white font-extrabold text-base flex items-center justify-center shadow-md shadow-slate-900/30 group-hover:scale-110 transition-transform">
+              02
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-skyCloud-50 text-skyCloud-700 border border-skyCloud-200">
+              AI Co-Pilot
+            </span>
+          </div>
+
+          <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-skyCloud-600 transition-colors">
+            AI-Powered Matching
+          </h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-5">
+            Agent <strong class="text-slate-900">Shambhavi</strong> analyzes hiring trends, personalizes semester roadmaps, and instantly routes students to seniors in target companies.
+          </p>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-skyCloud-600 font-semibold">
+            <span>Explore Roadmaps</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+        <!-- Step 3 Card -->
+        <div onclick="openDocDeskModal()" class="cursor-pointer group relative z-10 p-7 sm:p-8 rounded-3xl bg-white/90 hover:bg-white border border-slate-200/90 hover:border-emerald-400 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 backdrop-blur-xl">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-extrabold text-base flex items-center justify-center shadow-md shadow-emerald-600/30 group-hover:scale-110 transition-transform">
+              03
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+              Tangible Impact
+            </span>
+          </div>
+
+          <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
+            Action & Growth
+          </h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-5">
+            Referrals are fulfilled, official degrees and bonafides are digitally signed by registrars, and student ventures receive direct alumni angel grants.
+          </p>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-600 font-semibold">
+            <span>Retrieve Documents & Grants</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Action Callout Ribbon -->
+      <div class="mt-14 rounded-3xl bg-gradient-to-r from-sunsetOrange-500 via-amber-500 to-sunsetOrange-600 p-8 sm:p-10 text-white shadow-xl shadow-sunsetOrange-500/20 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 class="text-2xl font-bold tracking-tight">Ready to integrate your institution?</h3>
+          <p class="text-white/80 text-xs sm:text-sm mt-1 max-w-xl">
+            Join 500+ verified alumni and active campuses streamlining their networks with Sambhav today.
+          </p>
+        </div>
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <button onclick="openModal('student')" class="bg-white text-slate-900 hover:bg-slate-50 font-bold text-xs px-6 py-3 rounded-full transition shadow-md active:scale-95">
+            Join as Student
+          </button>
+          <button onclick="openModal('alumni')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-6 py-3 rounded-full transition shadow-md active:scale-95">
+            Alumni Login
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- UPGRADED: HIGH-END SAAS FOOTER                           -->
+    <!-- ======================================================== -->
+    <footer class="mt-32 pt-20 pb-12 border-t border-slate-200/80 bg-white/80 backdrop-blur-xl relative z-10">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-14 border-b border-slate-200">
+          
+          <!-- Column 1: Brand & Team Info -->
+          <div class="md:col-span-5 space-y-4">
+            <div class="flex items-center gap-2.5">
+              <div class="h-9 w-9 rounded-xl overflow-hidden flex items-center justify-center bg-white shadow-sm border border-slate-200/80">
+                <img 
+                  src="logo.png" 
+                  alt="Shambhav Logo" 
+                  class="h-full w-full object-contain p-1"
+                  onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'h-full w-full bg-gradient-to-tr from-sunsetOrange-500 to-amber-500 flex items-center justify-center text-white font-bold text-xs\'>S</div>';"
+                />
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xl font-extrabold text-slate-900 tracking-tight">Shambhav</span>
+                <span class="text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full bg-sunsetOrange-100 text-sunsetOrange-700">HackShift Winner</span>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-500 max-w-sm leading-relaxed">
+              Designed & developed by <strong>Team Tech Sisters</strong>. Solving alumni network disengagement, document queue friction, and student career guidance via an integrated RAG AI co-pilot.
+            </p>
+
+            <!-- Verification & Live Links Badges -->
+            <div class="flex flex-wrap items-center gap-2.5 pt-2">
+              <a href="https://github.com/kalyanijha445/KRISHIKA" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span>GitHub Repository</span>
+              </a>
+              <a href="https://krishika-24vi.onrender.com/signup" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-xl bg-sunsetOrange-50 hover:bg-sunsetOrange-100 text-sunsetOrange-700 border border-sunsetOrange-200/60 transition">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                <span>Live Deployment</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Platform Modules -->
+          <div class="md:col-span-2 text-xs space-y-3">
+            <p class="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Core Features</p>
+            <ul class="space-y-2.5 text-slate-600">
+              <li><a href="#ai-guidance" class="hover:text-sunsetOrange-600 transition flex items-center gap-1.5"><i data-lucide="bot" class="w-3.5 h-3.5 text-skyCloud-500"></i> Shambhavi AI</a></li>
+              <li><button onclick="openDocDeskModal()" class="hover:text-sunsetOrange-600 transition flex items-center gap-1.5 text-left"><i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-500"></i> Campus Requests</button></li>
+              <li><button onclick="openAlumniDirectoryModal()" class="hover:text-sunsetOrange-600 transition flex items-center gap-1.5 text-left"><i data-lucide="users" class="w-3.5 h-3.5 text-sunsetOrange-500"></i> 1:1 Mentorship</button></li>
+              <li><button onclick="openAngelModal()" class="hover:text-sunsetOrange-600 transition flex items-center gap-1.5 text-left"><i data-lucide="rocket" class="w-3.5 h-3.5 text-emerald-500"></i> Campus Angel Desk</button></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Architecture Stack -->
+          <div class="md:col-span-2 text-xs space-y-3">
+            <p class="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Technology Stack</p>
+            <ul class="space-y-2.5 text-slate-600">
+              <li class="flex items-center gap-1.5"><i data-lucide="code" class="w-3.5 h-3.5 text-slate-400"></i> Python & Flask API</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="database" class="w-3.5 h-3.5 text-slate-400"></i> Vector DB & RAG</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="layers" class="w-3.5 h-3.5 text-slate-400"></i> SQLite / SQLAlchemy</li>
+              <li class="flex items-center gap-1.5"><i data-lucide="cloud" class="w-3.5 h-3.5 text-slate-400"></i> Render & Vercel</li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Newsletter / Stay Updated -->
+          <div class="md:col-span-3 text-xs space-y-3">
+            <p class="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Join Campus Network</p>
+            <p class="text-slate-500 leading-relaxed">Subscribe to get verified launch updates when your university board is onboarded.</p>
+            
+            <form onsubmit="handleFooterNewsletter(event)" class="space-y-2 pt-1">
+              <div class="flex items-center gap-2">
+                <input 
+                  id="footer-email-input"
+                  type="email" 
+                  required 
+                  placeholder="Enter college email..." 
+                  class="w-full text-xs rounded-xl border border-slate-300 px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-sunsetOrange-500"
+                />
+                <button type="submit" class="bg-slate-900 hover:bg-slate-800 text-white font-semibold px-4 py-2.5 rounded-xl transition flex-shrink-0">
+                  Join
+                </button>
+              </div>
+              <p class="text-[10px] text-slate-400">Encrypted institutional updates only. No spam.</p>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+          <div class="flex items-center gap-2">
+            <span>© 2025 Shambhav Platform. All rights reserved.</span>
+            <span>•</span>
+            <span class="text-slate-600 font-medium">Crafted by Tech Sisters</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="inline-flex items-center gap-1 text-slate-500">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Institutional Systems Operational
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+    </main>
+  <!-- ======================================================== -->
+  <!-- MODAL 2: 1:1 SCHEDULE MODAL                              -->
+  <!-- ======================================================== -->
+  <div id="schedule-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+      <button onclick="closeScheduleModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-full bg-sunsetOrange-100 text-sunsetOrange-600 flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="calendar" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900">Book 1:1 Mentorship</h3>
+        <p id="schedule-target-name" class="text-xs text-slate-500 mt-1">Session with Rahul Verma (Atlassian)</p>
+      </div>
+
+      <form onsubmit="confirmSchedule(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Select Date</label>
+          <input type="date" required class="w-full text-xs rounded-xl border border-slate-300 p-3 bg-white focus:outline-none focus:ring-2 focus:ring-sunsetOrange-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Time Slot</label>
+          <select class="w-full text-xs rounded-xl border border-slate-300 p-3 bg-white focus:outline-none focus:ring-2 focus:ring-sunsetOrange-500">
+            <option>06:00 PM - 06:30 PM IST</option>
+            <option>07:30 PM - 08:00 PM IST</option>
+            <option>09:00 PM - 09:30 PM IST</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Questions / Notes for Mentor</label>
+          <textarea rows="3" placeholder="Resume review, system design guidance..." required class="w-full text-xs rounded-xl border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-sunsetOrange-500"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition">
+          Confirm & Send Google Meet Link
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 3: DOCUMENT REQUEST DESK                           -->
+  <!-- ======================================================== -->
+  <div id="doc-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+      <button onclick="closeDocDeskModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="file-check-2" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900">Campus Document Desk</h3>
+        <p class="text-xs text-slate-500 mt-1">Direct request pipeline to the College Registrar</p>
+      </div>
+
+      <form onsubmit="handleDocRequest(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Document Needed</label>
+          <select id="doc-select-val" class="w-full text-xs rounded-xl border border-slate-300 p-3 bg-white focus:outline-none focus:ring-2 focus:ring-sunsetOrange-500">
+            <option>Official Bonafide Certificate</option>
+            <option>Semester Transcripts (Consolidated)</option>
+            <option>Migration Certificate</option>
+            <option>Provisional Degree Verification</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Purpose of Request</label>
+          <input type="text" placeholder="e.g. Higher studies / VISA / New job verification" required class="w-full text-xs rounded-xl border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-sunsetOrange-500" />
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-full bg-gradient-to-r from-sunsetOrange-500 to-amber-500 text-white font-semibold text-xs transition shadow-md">
+          Submit to Registrar Desk
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 4: ALUMNI DIRECTORY PREVIEW                        -->
+  <!-- ======================================================== -->
+  <div id="directory-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+      <button onclick="closeAlumniDirectoryModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-5">
+        <h3 class="text-xl font-bold text-slate-900">Verified Alumni Mentors</h3>
+        <p class="text-xs text-slate-500 mt-0.5">Direct 1:1 mentorship from verified institutional seniors</p>
+      </div>
+
+      <div class="space-y-3">
+        <!-- Mentor 1 -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-sunsetOrange-500 text-white font-bold flex items-center justify-center">RV</div>
+            <div>
+              <h5 class="text-xs font-bold text-slate-900">Rahul Verma</h5>
+              <p class="text-[11px] text-slate-500">SDE II @ Atlassian • Batch '20</p>
+            </div>
+          </div>
+          <button onclick="openScheduleModal('Rahul Verma (Atlassian)')" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-sunsetOrange-500 hover:bg-sunsetOrange-600 text-white transition">Book Call</button>
+        </div>
+
+        <!-- Mentor 2 -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-skyCloud-500 text-white font-bold flex items-center justify-center">PS</div>
+            <div>
+              <h5 class="text-xs font-bold text-slate-900">Priya Sharma</h5>
+              <p class="text-[11px] text-slate-500">Software Engineer @ Google • Batch '21</p>
+            </div>
+          </div>
+          <button onclick="openScheduleModal('Priya Sharma (Google)')" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-sunsetOrange-500 hover:bg-sunsetOrange-600 text-white transition">Book Call</button>
+        </div>
+
+        <!-- Mentor 3 -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center">AD</div>
+            <div>
+              <h5 class="text-xs font-bold text-slate-900">Ananya Dixit</h5>
+              <p class="text-[11px] text-slate-500">AI Researcher @ Microsoft • Batch '19</p>
+            </div>
+          </div>
+          <button onclick="openScheduleModal('Ananya Dixit (Microsoft)')" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-sunsetOrange-500 hover:bg-sunsetOrange-600 text-white transition">Book Call</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <!-- ======================================================== -->
+  <!-- MODAL 5: CAMPUS ANGEL DESK                               -->
+  <!-- ======================================================== -->
+  <div id="angel-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
+      <button onclick="closeAngelModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="rocket" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900">Campus Angel Desk</h3>
+        <p class="text-xs text-slate-500 mt-1">Pitch student-led startups directly to alumni angel syndicates</p>
+      </div>
+
+      <form onsubmit="handleAngelSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Startup Project Title</label>
+          <input type="text" placeholder="e.g. EcoCharge AI" required class="w-full text-xs rounded-xl border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-sunsetOrange-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Target Micro-Grant Amount</label>
+          <select class="w-full text-xs rounded-xl border border-slate-300 p-3 bg-white focus:outline-none focus:ring-2 focus:ring-sunsetOrange-500">
+            <option>₹50,000 (Prototype Phase)</option>
+            <option>₹1,00,000 (MVP & Validation)</option>
+            <option>₹5,00,000 (Seed Angel Round)</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition shadow-md">
+          Submit Pitch to Alumni Syndicate
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-slate-900 text-white text-xs px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-msg">Action completed!</span>
+  </div>
+
+  <div class="fixed bottom-6 right-6 z-40 flex items-center gap-3">
+  
+  <!-- Interactive Greeting Bubble -->
+  <div class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-md shadow-lg shadow-sunsetOrange-500/10 border border-sunsetOrange-200 text-slate-800 text-xs font-semibold cursor-pointer" onclick="openShambhaviBot()">
+    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+    <span>Ask Shambhavi AI</span>
+  </div>
+
+  <!-- The Cute Animated Robot Avatar Button -->
+  <button 
+    onclick="openShambhaviBot()" 
+    class="group bot-floating relative h-16 w-16 rounded-full bg-gradient-to-tr from-sunsetOrange-500 via-amber-500 to-sunsetOrange-600 p-2 shadow-2xl shadow-sunsetOrange-500/50 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center cursor-pointer border-2 border-white/40">
+    
+    <!-- Ambient Glow Aura -->
+    <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-amber-400 to-sunsetOrange-600 opacity-60 blur-md group-hover:opacity-90 transition duration-300 -z-10"></div>
+    
+    <!-- SVG MASCOT (SMILING ROBOT WITH LOOP ARROWS) -->
+    <svg viewBox="0 0 100 100" class="w-full h-full text-white fill-current transition-transform duration-300">
+      <defs>
+        <!-- Gradients -->
+        <linearGradient id="shambhaviGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FFFFFF" />
+          <stop offset="100%" stop-color="#FFF7ED" />
+        </linearGradient>
+      </defs>
+
+      <!-- 1. CIRCULAR LOOP ARROWS (Orbiting Around Head) -->
+      <g class="orbit-arrows transition-transform duration-700 origin-center text-white" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round">
+        <!-- Top Arc Arrow -->
+        <path d="M 22 34 A 42 42 0 0 1 78 28" />
+        <polyline points="72,21 82,28 73,36" fill="currentColor" />
+
+        <!-- Bottom Arc Arrow -->
+        <path d="M 78 66 A 42 42 0 0 1 22 72" />
+        <polyline points="28,79 18,72 27,64" fill="currentColor" />
+      </g>
+
+      <!-- 2. ROBOT HEAD BASE -->
+      <rect x="22" y="27" width="56" height="46" rx="23" fill="url(#shambhaviGrad)" stroke="#EA580C" stroke-width="2.5" />
+
+      <!-- 3. HEADPHONE EARS (Left & Right) -->
+      <rect x="15" y="38" width="7" height="24" rx="3.5" fill="#EA580C" />
+      <rect x="78" y="38" width="7" height="24" rx="3.5" fill="#EA580C" />
+
+      <!-- 4. ANTENNAS (Top Left & Top Right) -->
+      <line x1="30" y1="27" x2="23" y2="16" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" />
+      <circle cx="21" cy="14" r="3.5" fill="#EA580C" />
+
+      <line x1="70" y1="27" x2="77" y2="16" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" />
+      <circle cx="79" cy="14" r="3.5" fill="#EA580C" />
+
+      <!-- 5. HAPPY SMILING FACE -->
+      <!-- Left Happy Eye (^) -->
+      <path d="M 34 46 Q 40 40 46 46" stroke="#0C4A6E" stroke-width="3" stroke-linecap="round" fill="none" />
+      <!-- Right Happy Eye (^) -->
+      <path d="M 54 46 Q 60 40 66 46" stroke="#0C4A6E" stroke-width="3" stroke-linecap="round" fill="none" />
+      <!-- Happy Smile Curved Mouth (‿) -->
+      <path d="M 43 56 Q 50 63 57 56" stroke="#0C4A6E" stroke-width="3" stroke-linecap="round" fill="none" />
+    </svg>
+
+    <!-- Online Indicator Badge -->
+    <span class="absolute top-0 right-0 w-4 h-4 rounded-full bg-emerald-400 border-2 border-white shadow-sm flex items-center justify-center">
+      <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+    </span>
+  </button>
+</div>
+
+<!-- 3. INTERACTIVE CHAT MODAL -->
+<div id="shambhavi-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 flex flex-col h-[590px] overflow-hidden relative">
+    
+    <!-- Modal Header with Mascot Mini Avatar -->
+    <div class="bg-gradient-to-r from-sunsetOrange-600 via-amber-500 to-sunsetOrange-500 p-4 sm:p-5 flex items-center justify-between text-white flex-shrink-0">
+      <div class="flex items-center gap-3">
+        
+        <!-- Small Mascot Avatar in Header -->
+        <div class="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md p-1.5 border border-white/30 flex items-center justify-center shadow-inner">
+          <svg viewBox="0 0 100 100" class="w-full h-full text-white fill-current">
+            <g stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round">
+              <path d="M 22 34 A 42 42 0 0 1 78 28" /><polyline points="72,21 82,28 73,36" fill="currentColor" />
+              <path d="M 78 66 A 42 42 0 0 1 22 72" /><polyline points="28,79 18,72 27,64" fill="currentColor" />
+            </g>
+            <rect x="22" y="27" width="56" height="46" rx="23" fill="#FFFFFF" stroke="#EA580C" stroke-width="2.5" />
+            <rect x="15" y="38" width="7" height="24" rx="3.5" fill="#EA580C" />
+            <rect x="78" y="38" width="7" height="24" rx="3.5" fill="#EA580C" />
+            <path d="M 34 46 Q 40 40 46 46" stroke="#0C4A6E" stroke-width="3" stroke-linecap="round" fill="none" />
+            <path d="M 54 46 Q 60 40 66 46" stroke="#0C4A6E" stroke-width="3" stroke-linecap="round" fill="none" />
+            <path d="M 43 56 Q 50 63 57 56" stroke="#0C4A6E" stroke-width="3" stroke-linecap="round" fill="none" />
+          </svg>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h4 class="text-sm font-bold tracking-tight">Shambhavi AI</h4>
+            <span class="text-[9px] uppercase font-bold px-1.5 py-0.5 rounded-full bg-white/20 text-white border border-white/30">Active Co-Pilot</span>
+          </div>
+          <p class="text-[11px] text-white/90">Instant guidance for students, alumni & campus desk</p>
+        </div>
+      </div>
+      
+      <!-- Close / Refresh -->
+      <div class="flex items-center gap-1.5">
+        <button onclick="resetShambhaviChat()" title="Reset" class="p-2 rounded-xl hover:bg-white/20 text-white/80 hover:text-white transition cursor-pointer">
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+        </button>
+        <button onclick="closeShambhaviBot()" title="Close" class="p-2 rounded-xl hover:bg-white/20 text-white/80 hover:text-white transition cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chat Messages Window -->
+    <div id="shambhavi-chat-box" class="flex-1 p-4 sm:p-5 overflow-y-auto space-y-3.5 bg-slate-50 text-xs custom-scroll">
+      
+      <!-- Greeting from Shambhavi -->
+      <div class="flex justify-start">
+        <div class="bg-white border border-slate-200/90 text-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[90%] shadow-sm space-y-2.5">
+          <p class="font-medium">Namaste! 👋 I am <strong>Shambhavi</strong>. How can I help you today?</p>
+          
+          <!-- Guided Options -->
+          <div class="pt-1 flex flex-col gap-1.5">
+            <button onclick="handleBotOption('student_mentor')" class="text-left w-full px-3 py-2 rounded-xl bg-skyCloud-50 hover:bg-skyCloud-100 text-skyCloud-900 border border-skyCloud-200 font-semibold transition flex items-center justify-between cursor-pointer">
+              <span>🎓 Connect with an Alumni Mentor</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-skyCloud-500"></i>
+            </button>
+
+            <button onclick="handleBotOption('document_request')" class="text-left w-full px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-semibold transition flex items-center justify-between cursor-pointer">
+              <span>📄 Official Transcripts & Bonafides</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500"></i>
+            </button>
+
+            <button onclick="handleBotOption('alumni_giveback')" class="text-left w-full px-3 py-2 rounded-xl bg-sunsetOrange-50 hover:bg-sunsetOrange-100 text-sunsetOrange-900 border border-sunsetOrange-200 font-semibold transition flex items-center justify-between cursor-pointer">
+              <span>🤝 Alumni Network & Angel Grants</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-sunsetOrange-500"></i>
+            </button>
+
+            <button onclick="handleBotOption('account_access')" class="text-left w-full px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-semibold transition flex items-center justify-between cursor-pointer">
+              <span>🔐 Access Login & Registration</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Input -->
+    <div class="p-3 bg-white border-t border-slate-200 flex-shrink-0">
+      <form onsubmit="handleUserChatSubmit(event)" class="flex items-center gap-2">
+        <input 
+          id="shambhavi-user-input" 
+          type="text" 
+          placeholder="Ask me anything ('login', 'bonafide', 'mentor Google')..." 
+          class="w-full text-xs rounded-xl border border-slate-300 px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-sunsetOrange-500 bg-slate-50"
+        />
+        <button type="submit" class="p-2.5 rounded-xl bg-gradient-to-r from-sunsetOrange-500 to-amber-500 hover:from-sunsetOrange-600 hover:to-amber-600 text-white shadow-md transition flex-shrink-0 cursor-pointer">
+          <i data-lucide="send" class="w-4 h-4"></i>
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT: CLEANED, DEDUPLICATED & FULLY FUNCTIONAL     -->
+  <!-- ======================================================== -->
+  <script>
+    // Initialize icons immediately
+    lucide.createIcons();
+
+    // 1. Navbar Glassmorphism on Scroll
+    const navbarPill = document.getElementById('navbar-pill');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 25) {
+        navbarPill.classList.add('glass-scrolled');
+        navbarPill.classList.remove('glass-initial');
+      } else {
+        navbarPill.classList.remove('glass-scrolled');
+        navbarPill.classList.add('glass-initial');
+      }
+    });
+
+    // 2. Mobile Drawer
+    const mobileBtn = document.getElementById('mobile-btn');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    mobileBtn.addEventListener('click', () => {
+      const isHidden = mobileDrawer.classList.contains('hidden');
+      if (isHidden) {
+        mobileDrawer.classList.remove('hidden');
+        hamburgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        mobileDrawer.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+
+    // 3. STATS NUMBER COUNT-UP ANIMATION (GUARANTEED TO TRIGGER)
+    function runCounters() {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        let current = 0;
+        const duration = 1400;
+        const step = target / (duration / 20);
+
+        const updateCount = () => {
+          current += step;
+          if (current < target) {
+            counter.textContent = Math.ceil(current);
+            setTimeout(updateCount, 20);
+          } else {
+            counter.textContent = target.toLocaleString();
+          }
+        };
+        updateCount();
+      });
+    }
+    // Fire counter immediately on load and on scroll
+    window.addEventListener('DOMContentLoaded', runCounters);
+
+    // 4. ROLE SWITCHER BUTTONS (STUDENT / ALUMNI / CAMPUS DESK)
+    function switchPreviewRole(role) {
+      // Hide all contents
+      document.querySelectorAll('.role-content').forEach(el => el.classList.add('hidden'));
+      
+      // Reset all buttons
+      document.querySelectorAll('.role-tab').forEach(el => {
+        el.classList.remove('bg-white', 'text-sunsetOrange-600', 'shadow-sm');
+        el.classList.add('text-slate-600');
+      });
+
+      // Show selected
+      const activeContent = document.getElementById(`content-${role}`);
+      const activeTab = document.getElementById(`tab-${role}`);
+
+      if (activeContent) activeContent.classList.remove('hidden');
+      if (activeTab) {
+        activeTab.classList.add('bg-white', 'text-sunsetOrange-600', 'shadow-sm');
+        activeTab.classList.remove('text-slate-600');
+      }
+      lucide.createIcons();
+    }
+
+    // 5. TOAST NOTIFICATION
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    // 6. MODAL CONTROLS: AUTH
+    const authModal = document.getElementById('auth-modal');
+    function openModal(defaultRole = 'student') {
+      authModal.classList.remove('hidden');
+      if (defaultRole === 'login') {
+        document.getElementById('modal-heading').innerText = "Welcome Back";
+        selectModalRole('student');
+      } else {
+        document.getElementById('modal-heading').innerText = "Access Your Campus";
+        selectModalRole(defaultRole);
+      }
+    }
+    function closeModal() {
+      authModal.classList.add('hidden');
+    }
+    function selectModalRole(role) {
+      ['student', 'alumni', 'campus'].forEach(r => {
+        const btn = document.getElementById(`modal-role-${r}`);
+        if (btn) {
+          btn.className = "p-3 rounded-2xl border border-slate-200 text-center transition flex flex-col items-center gap-1 text-slate-600 hover:border-slate-300";
+        }
+      });
+      const selected = document.getElementById(`modal-role-${role}`);
+      if (selected) {
+        selected.className = "p-3 rounded-2xl border text-center transition flex flex-col items-center gap-1 border-sunsetOrange-500 bg-sunsetOrange-50 text-sunsetOrange-600";
+      }
+      lucide.createIcons();
+    }
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      closeModal();
+      showToast("Verified institutional authorization granted!");
+    }
+
+    // 7. MODAL CONTROLS: 1:1 SCHEDULE
+    const scheduleModal = document.getElementById('schedule-modal');
+    function openScheduleModal(name) {
+      document.getElementById('schedule-target-name').innerText = `Session: ${name}`;
+      scheduleModal.classList.remove('hidden');
+    }
+    function closeScheduleModal() {
+      scheduleModal.classList.add('hidden');
+    }
+    function confirmSchedule(e) {
+      e.preventDefault();
+      closeScheduleModal();
+      showToast("1:1 Mentorship Session Confirmed via Google Meet!");
+    }
+    function simulateSchedule() {
+      const btn = document.getElementById('schedule-btn');
+      btn.innerHTML = `<i data-lucide="check" class="w-3 h-3 text-emerald-500"></i> Meeting Booked!`;
+      btn.classList.add('bg-emerald-50', 'text-emerald-800');
+      lucide.createIcons();
+      showToast("Mentorship invite sent to Rahul Verma via Google Meet sync!");
+    }
+
+    // 8. MODAL CONTROLS: CAMPUS DOCUMENT DESK
+    const docModal = document.getElementById('doc-modal');
+    function openDocDeskModal() {
+      docModal.classList.remove('hidden');
+    }
+    function closeDocDeskModal() {
+      docModal.classList.add('hidden');
+    }
+    function handleDocRequest(e) {
+      e.preventDefault();
+      const doc = document.getElementById('doc-select-val').value;
+      closeDocDeskModal();
+      showToast(`Request for ${doc} submitted to Registrar Desk!`);
+    }
+    function bulkApproveTranscripts() {
+      const count = document.getElementById('admin-pending-count');
+      if (count) count.innerText = "0";
+      showToast("18 Pending Transcripts digitally signed & dispatched to students!");
+    }
+
+    // 9. MODAL CONTROLS: ALUMNI DIRECTORY
+    const directoryModal = document.getElementById('directory-modal');
+    function openAlumniDirectoryModal() {
+      directoryModal.classList.remove('hidden');
+    }
+    function closeAlumniDirectoryModal() {
+      directoryModal.classList.add('hidden');
+    }
+
+    // 10. MODAL CONTROLS: ANGEL DESK
+    const angelModal = document.getElementById('angel-modal');
+    function openAngelModal() {
+      angelModal.classList.remove('hidden');
+    }
+    function closeAngelModal() {
+      angelModal.classList.add('hidden');
+    }
+    function handleAngelSubmit(e) {
+      e.preventDefault();
+      closeAngelModal();
+      showToast("Pitch deck forwarded to Campus Alumni Angel Syndicate!");
+    }
+
+    // 11. SHAMBHAVI INTERACTIVE AI RESPONSES
+    function askShambhavi(type) {
+      const thread = document.getElementById('ai-chat-thread');
+      const responseBlock = document.createElement('div');
+      responseBlock.className = "flex justify-start";
+
+      if (type.includes('AI')) {
+        responseBlock.innerHTML = `
+          <div class="bg-white/15 text-slate-100 rounded-2xl rounded-tl-none p-3.5 max-w-[95%] border border-white/10 space-y-1.5 text-xs">
+            <p class="font-bold text-sunsetOrange-300">Target Trajectory: AI & LLM Systems</p>
+            <p class="text-slate-300">Phase 1: PyTorch & Linear Algebra • Phase 2: RAG, Embeddings & Vector DBs • Phase 3: Fine-tuning Open Source Models.</p>
+            <p class="text-slate-400 text-[10px]">Alumni Paired: Ananya Dixit (Microsoft Research)</p>
+          </div>
+        `;
+      } else {
+        responseBlock.innerHTML = `
+          <div class="bg-white/15 text-slate-100 rounded-2xl rounded-tl-none p-3.5 max-w-[95%] border border-white/10 space-y-1.5 text-xs">
+            <p class="font-bold text-sunsetOrange-300">Resume Diagnostic</p>
+            <p class="text-slate-300">Your profile matches 84% with Tier-1 Product Engineering criteria. Recommend adding 1 microservice architecture project.</p>
+          </div>
+        `;
+      }
+      thread.appendChild(responseBlock);
+    }
+
+      const shambhaviModal = document.getElementById('shambhavi-modal');
+  const chatBox = document.getElementById('shambhavi-chat-box');
+  const userInput = document.getElementById('shambhavi-user-input');
+
+  function openShambhaviBot() {
+    shambhaviModal.classList.remove('hidden');
+    if (window.lucide) lucide.createIcons();
+    userInput.focus();
+  }
+
+  function closeShambhaviBot() {
+    shambhaviModal.classList.add('hidden');
+  }
+
+  function appendBotMessage(htmlContent, isUser = false) {
+    const msgWrapper = document.createElement('div');
+    msgWrapper.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+
+    if (isUser) {
+      msgWrapper.innerHTML = `
+        <div class="bg-gradient-to-r from-sunsetOrange-500 to-amber-500 text-white rounded-2xl rounded-tr-none px-4 py-2.5 max-w-[85%] shadow-sm">
+          ${htmlContent}
+        </div>
+      `;
+    } else {
+      msgWrapper.innerHTML = `
+        <div class="bg-white border border-slate-200/90 text-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[90%] shadow-sm space-y-2">
+          ${htmlContent}
+        </div>
+      `;
+    }
+
+    chatBox.appendChild(msgWrapper);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function handleBotOption(type) {
+    if (type === 'student_mentor') {
+      appendBotMessage("🎓 Connect with an Alumni Mentor", true);
+      setTimeout(() => {
+        appendBotMessage(`
+          <p class="font-semibold text-slate-900">Explore Mentors</p>
+          <p class="text-slate-600">Connect 1:1 with seniors working at top firms like Google, Microsoft, and Atlassian:</p>
+          <div class="pt-2 flex flex-col gap-1.5">
+            <button onclick="closeShambhaviBot(); if(window.openAlumniDirectoryModal) openAlumniDirectoryModal();" class="text-xs px-3.5 py-2 bg-gradient-to-r from-sunsetOrange-500 to-amber-500 hover:from-sunsetOrange-600 text-white rounded-xl font-medium text-left cursor-pointer">
+              🔍 Open Mentor Directory
+            </button>
+            <a href="/login" class="text-xs px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl font-medium text-left inline-block">
+              🔑 Student Login
+            </a>
+          </div>
+        `);
+      }, 350);
+    } else if (type === 'document_request') {
+      appendBotMessage("📄 Official Transcripts & Bonafides", true);
+      setTimeout(() => {
+        appendBotMessage(`
+          <p class="font-semibold text-slate-900">Digital Paperwork</p>
+          <p class="text-slate-600">Apply for university-verified certificates without college counter queues:</p>
+          <div class="pt-2">
+            <button onclick="closeShambhaviBot(); if(window.openDocDeskModal) openDocDeskModal();" class="w-full text-xs px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-semibold text-center cursor-pointer">
+              🚀 Open Document Request Form
+            </button>
+          </div>
+        `);
+      }, 350);
+    } else if (type === 'alumni_giveback') {
+      appendBotMessage("🤝 Alumni Network & Angel Grants", true);
+      setTimeout(() => {
+        appendBotMessage(`
+          <p class="font-semibold text-slate-900">Alumni Community</p>
+          <p class="text-slate-600">Give back by mentoring students or supporting campus ventures with micro-grants:</p>
+          <div class="pt-2 flex flex-col gap-1.5">
+            <a href="/login" class="text-xs px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-medium text-center">
+              Alumni Portal Login
+            </a>
+            <button onclick="closeShambhaviBot(); if(window.openAngelModal) openAngelModal();" class="text-xs px-3.5 py-2 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl font-medium text-left cursor-pointer">
+              🚀 View Campus Angel Desk
+            </button>
+          </div>
+        `);
+      }, 350);
+    } else if (type === 'account_access') {
+      appendBotMessage("🔐 Access Login & Registration", true);
+      setTimeout(() => {
+        appendBotMessage(`
+          <p class="font-semibold text-slate-900">Choose your destination:</p>
+          <div class="pt-2 flex gap-2">
+            <a href="/login" class="flex-1 text-center text-xs px-3 py-2 bg-gradient-to-r from-sunsetOrange-500 to-amber-500 text-white rounded-xl font-semibold hover:opacity-90">
+              Log In
+            </a>
+            <a href="/signup" class="flex-1 text-center text-xs px-3 py-2 bg-slate-100 border border-slate-300 text-slate-800 rounded-xl font-semibold hover:bg-slate-200">
+              Register
+            </a>
+          </div>
+        `);
+      }, 350);
+    }
+  }
+
+  function handleUserChatSubmit(e) {
+    e.preventDefault();
+    const text = userInput.value.trim();
+    if (!text) return;
+
+    appendBotMessage(text, true);
+    userInput.value = '';
+
+    const q = text.toLowerCase();
+
+    setTimeout(() => {
+      if (q.includes('login') || q.includes('sign in')) {
+        appendBotMessage(`
+          <p class="text-slate-800 font-medium">Ready to enter your workspace?</p>
+          <a href="/login" class="mt-2 inline-block px-4 py-2 bg-gradient-to-r from-sunsetOrange-500 to-amber-500 text-white rounded-xl font-semibold text-xs hover:opacity-90">
+            Open Login Page →
+          </a>
+        `);
+      } else if (q.includes('signup') || q.includes('register')) {
+        appendBotMessage(`
+          <p class="text-slate-800 font-medium">Create your institutional account:</p>
+          <a href="/signup" class="mt-2 inline-block px-4 py-2 bg-slate-900 text-white rounded-xl font-semibold text-xs hover:bg-slate-800">
+            Go to Registration →
+          </a>
+        `);
+      } else if (q.includes('bonafide') || q.includes('transcript') || q.includes('document')) {
+        appendBotMessage(`
+          <p class="text-slate-800 font-medium">Official Document Desk:</p>
+          <button onclick="closeShambhaviBot(); if(window.openDocDeskModal) openDocDeskModal();" class="mt-2 px-4 py-2 bg-amber-500 text-white rounded-xl font-semibold text-xs hover:bg-amber-600 cursor-pointer">
+            Open Document Form
+          </button>
+        `);
+      } else if (q.includes('mentor') || q.includes('referral') || q.includes('interview')) {
+        appendBotMessage(`
+          <p class="text-slate-800 font-medium">Book 1:1 Mentorship:</p>
+          <button onclick="closeShambhaviBot(); if(window.openAlumniDirectoryModal) openAlumniDirectoryModal();" class="mt-2 px-4 py-2 bg-gradient-to-r from-sunsetOrange-500 to-amber-500 text-white rounded-xl font-semibold text-xs hover:opacity-90 cursor-pointer">
+            View Mentors
+          </button>
+        `);
+      } else {
+        appendBotMessage(`
+          <p class="text-slate-800">I can guide you to any part of the portal. Where would you like to go?</p>
+          <div class="pt-2 flex flex-wrap gap-1.5">
+            <button onclick="handleBotOption('student_mentor')" class="px-2.5 py-1 bg-slate-100 rounded-lg text-[10px] font-semibold text-slate-700 hover:bg-slate-200 cursor-pointer">Mentorship</button>
+            <button onclick="handleBotOption('document_request')" class="px-2.5 py-1 bg-slate-100 rounded-lg text-[10px] font-semibold text-slate-700 hover:bg-slate-200 cursor-pointer">Documents</button>
+            <a href="/login" class="px-2.5 py-1 bg-sunsetOrange-100 text-sunsetOrange-700 rounded-lg text-[10px] font-semibold hover:bg-sunsetOrange-200">Login</a>
+          </div>
+        `);
+      }
+    }, 350);
+  }
+
+  function resetShambhaviChat() {
+    chatBox.innerHTML = `
+      <div class="flex justify-start">
+        <div class="bg-white border border-slate-200/90 text-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[90%] shadow-sm space-y-2.5">
+          <p class="font-medium">Namaste! 👋 I am <strong>Shambhavi</strong>. How can I help you today?</p>
+          
+          <div class="pt-1 flex flex-col gap-1.5">
+            <button onclick="handleBotOption('student_mentor')" class="text-left w-full px-3 py-2 rounded-xl bg-skyCloud-50 hover:bg-skyCloud-100 text-skyCloud-900 border border-skyCloud-200 font-semibold transition flex items-center justify-between cursor-pointer">
+              <span>🎓 Connect with an Alumni Mentor</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-skyCloud-500"></i>
+            </button>
+
+            <button onclick="handleBotOption('document_request')" class="text-left w-full px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-semibold transition flex items-center justify-between cursor-pointer">
+              <span>📄 Official Transcripts & Bonafides</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500"></i>
+            </button>
+
+            <button onclick="handleBotOption('alumni_giveback')" class="text-left w-full px-3 py-2 rounded-xl bg-sunsetOrange-50 hover:bg-sunsetOrange-100 text-sunsetOrange-900 border border-sunsetOrange-200 font-semibold transition flex items-center justify-between cursor-pointer">
+              <span>🤝 Alumni Network & Angel Grants</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-sunsetOrange-500"></i>
+            </button>
+
+            <button onclick="handleBotOption('account_access')" class="text-left w-full px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-semibold transition flex items-center justify-between cursor-pointer">
+              <span>🔐 Access Login & Registration</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-500"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    if (window.lucide) lucide.createIcons();
+  }
+  </script>
+</body>
+</html>

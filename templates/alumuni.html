@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shambhav — Student Career Operating System</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            cloudy: {
+              50: '#F4F8FB',
+              100: '#E6EFF6',
+              200: '#D0E2EF',
+              300: '#A9CBE2',
+              400: '#75A9CE',
+              500: '#4F8FBD',
+              600: '#3873A2',
+              700: '#2C5C83',
+              800: '#234A69',
+              900: '#1B3A53',
+              950: '#102334',
+            },
+            mist: {
+              50: '#F8FAFC',
+              100: '#F1F5F9',
+              200: '#E2E8F0',
+              300: '#CBD5E1',
+            },
+            accentAmber: '#F59E0B',
+            canvasBg: '#F5F8FB',
+            darkText: '#102334',
+            mutedText: '#627D98',
+            softBorder: '#E2ECF3',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    .active-nav {
+      background-color: #EBF3F9 !important;
+      color: #234A69 !important;
+      font-weight: 700 !important;
+      border-right: 3px solid #3873A2;
+    }
+    .active-nav i {
+      color: #3873A2 !important;
+    }
+  </style>
+</head>
+<body class="bg-canvasBg text-darkText font-sans antialiased overflow-x-hidden selection:bg-cloudy-200 selection:text-cloudy-900">
+
+  <div class="flex min-h-screen">
+
+    <!-- ======================================================== -->
+    <!-- LEFT SIDEBAR                                             -->
+    <!-- ======================================================== -->
+    <aside class="w-64 bg-white border-r border-softBorder fixed top-0 bottom-0 left-0 z-40 flex flex-col justify-between py-6 select-none transition-all duration-300">
+      
+      <!-- Top Section -->
+      <div>
+        <!-- Logo -->
+        <div class="px-6 pb-6 flex items-center gap-3 border-b border-softBorder">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cloudy-800 to-cloudy-500 flex items-center justify-center text-white shadow-md shadow-cloudy-600/20">
+            <i data-lucide="sparkles" class="w-5 h-5 text-cloudy-100"></i>
+          </div>
+          <div>
+            <span class="text-lg font-extrabold tracking-tight text-darkText block leading-tight">Shambhav</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-mutedText">Career OS</span>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="mt-5 px-3 space-y-1">
+          <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-item active-nav w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="layout-grid" class="w-4 h-4 text-mutedText"></i>
+            <span>Dashboard</span>
+          </button>
+
+          <button onclick="navigateTo('mentors')" id="nav-mentors" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="compass" class="w-4 h-4 text-mutedText"></i>
+            <span>Find Mentors</span>
+          </button>
+
+          <button onclick="navigateTo('messages')" id="nav-messages" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <div class="flex items-center gap-3">
+              <i data-lucide="message-square" class="w-4 h-4 text-mutedText"></i>
+              <span>Messages</span>
+            </div>
+            <span class="bg-cloudy-700 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">2</span>
+          </button>
+
+          <button onclick="navigateTo('sessions')" id="nav-sessions" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="calendar" class="w-4 h-4 text-mutedText"></i>
+            <span>My Sessions</span>
+          </button>
+
+          <button onclick="navigateTo('resume')" id="nav-resume" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="file-text" class="w-4 h-4 text-mutedText"></i>
+            <span>Resume</span>
+          </button>
+
+          <button onclick="navigateTo('opportunities')" id="nav-opportunities" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="briefcase" class="w-4 h-4 text-mutedText"></i>
+            <span>Opportunities</span>
+          </button>
+
+          <button onclick="navigateTo('progress')" id="nav-progress" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="flame" class="w-4 h-4 text-mutedText"></i>
+            <span>Progress & Streak</span>
+          </button>
+
+          <button onclick="showToast('Achievements vault unlocked! 7 badges earned.')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="award" class="w-4 h-4 text-mutedText"></i>
+            <span>Achievements</span>
+          </button>
+
+          <button onclick="showToast('Settings & preferences opened.')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium text-mutedText hover:text-darkText hover:bg-cloudy-50 transition">
+            <i data-lucide="settings" class="w-4 h-4 text-mutedText"></i>
+            <span>Settings</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Bottom Profile Section -->
+      <div class="px-4">
+        <div class="p-3 bg-cloudy-50/70 rounded-2xl border border-softBorder flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-cloudy-700 text-white font-bold flex items-center justify-center text-xs shadow-sm">
+              SH
+            </div>
+            <div>
+              <p class="text-xs font-bold text-darkText leading-tight">Shambhav</p>
+              <p class="text-[10px] text-mutedText font-medium">B.Tech • Year 3</p>
+            </div>
+          </div>
+          <button onclick="showToast('Logged out session securely.')" title="Logout" class="text-mutedText hover:text-cloudy-800 p-1.5 rounded-lg hover:bg-white transition">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ======================================================== -->
+    <!-- MAIN CONTENT AREA                                        -->
+    <!-- ======================================================== -->
+    <div class="flex-1 ml-64 flex flex-col min-h-screen">
+      
+      <!-- TOP HEADER BAR -->
+      <header class="bg-white/95 backdrop-blur-md sticky top-0 z-30 border-b border-softBorder px-8 py-4 flex items-center justify-between">
+        <div>
+          <h1 class="text-lg font-bold text-darkText flex items-center gap-2">
+            <span>Good morning, Shambhav</span>
+            <span class="text-xl">👋</span>
+          </h1>
+          <p class="text-xs text-mutedText mt-0.5">Here's your personalized career plan for today.</p>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Quick Search -->
+          <div class="relative w-72">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-mutedText absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              placeholder="Search mentors, skills, opportunities..." 
+              class="w-full text-xs bg-cloudy-50/60 border border-softBorder rounded-full pl-9 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-cloudy-300 focus:border-cloudy-500 text-darkText placeholder-mutedText"
+            />
+          </div>
+
+          <!-- Notification Dropdown Button -->
+          <div class="relative">
+            <button onclick="toggleNotificationPanel()" class="w-9 h-9 rounded-full bg-cloudy-50/80 border border-softBorder flex items-center justify-center text-mutedText hover:text-darkText relative hover:bg-cloudy-100 transition">
+              <i data-lucide="bell" class="w-4 h-4"></i>
+              <!-- Subtle Amber Dot for Attention Only -->
+              <span class="w-2 h-2 rounded-full bg-accentAmber absolute top-1.5 right-2 ring-2 ring-white"></span>
+            </button>
+
+            <!-- Notification Drawer -->
+            <div id="notif-panel" class="hidden absolute right-0 mt-3 w-80 bg-white rounded-2xl shadow-xl border border-softBorder p-4 space-y-3 z-50">
+              <div class="flex items-center justify-between pb-2 border-b border-softBorder">
+                <span class="text-xs font-bold text-darkText">Notifications</span>
+                <span class="text-[10px] text-cloudy-700 font-semibold cursor-pointer hover:underline">Mark all as read</span>
+              </div>
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-xl bg-cloudy-50 border border-cloudy-100">
+                  <p class="font-semibold text-darkText">Rahul accepted your request!</p>
+                  <p class="text-[11px] text-mutedText mt-0.5">Mock interview confirmed for today at 2:00 PM.</p>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <p class="font-semibold text-darkText">Priya sent feedback on your resume</p>
+                  <p class="text-[11px] text-mutedText mt-0.5">Resume score increased to 82/100.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Pill -->
+          <div class="flex items-center gap-2 pl-2 border-l border-softBorder">
+            <div class="w-9 h-9 rounded-full bg-cloudy-700 text-white font-bold text-xs flex items-center justify-center ring-2 ring-cloudy-100">
+              SH
+            </div>
+            <div class="hidden sm:block text-left">
+              <p class="text-xs font-bold text-darkText leading-tight">Shambhav</p>
+              <p class="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active Streak
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 1: MAIN DASHBOARD VIEW                            -->
+      <!-- ====================================================== -->
+      <section id="view-dashboard" class="dashboard-view p-8 flex-1">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- LEFT / MAIN COLUMN (8 COLS) -->
+          <div class="lg:col-span-8 space-y-8">
+            
+            <!-- 1. CLOUDY BLUE HERO BANNER -->
+            <div class="rounded-3xl p-7 bg-gradient-to-br from-cloudy-900 via-cloudy-800 to-cloudy-600 text-white relative overflow-hidden shadow-lg shadow-cloudy-900/10">
+              <!-- Geometric subtle cloudy mist blurs -->
+              <div class="absolute -right-8 -bottom-8 w-64 h-64 bg-cloudy-400/20 rounded-full blur-3xl pointer-events-none"></div>
+              <div class="absolute top-2 right-1/3 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+
+              <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                <div class="max-w-md space-y-3">
+                  <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[11px] font-bold tracking-wide text-cloudy-100 border border-white/20">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cloudy-200"></i>
+                    <span>DAILY FOCUS • SEMESTER 6</span>
+                  </div>
+                  <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight text-white">
+                    Your next opportunity is one session away.
+                  </h2>
+                  <p class="text-xs sm:text-sm text-cloudy-100/90 leading-relaxed font-normal">
+                    You have <strong class="text-white underline font-bold">3 critical milestones</strong> scheduled today. Connect with Rahul for mock system design prep.
+                  </p>
+
+                  <div class="pt-2 flex flex-wrap items-center gap-3">
+                    <button onclick="navigateTo('sessions')" class="bg-white text-cloudy-950 hover:bg-cloudy-50 font-bold text-xs px-5 py-2.5 rounded-full transition shadow-sm active:scale-95">
+                      View Today's Plan
+                    </button>
+                    <button onclick="navigateTo('opportunities')" class="bg-cloudy-950/60 hover:bg-cloudy-950 text-white border border-white/20 font-semibold text-xs px-5 py-2.5 rounded-full transition active:scale-95">
+                      Explore Opportunities
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Today Schedule Snapshot (Cloudy Frosted Glass) -->
+                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/15 w-full sm:w-64 space-y-2 text-xs">
+                  <p class="font-bold uppercase tracking-wider text-[10px] text-cloudy-200">Today's Schedule</p>
+                  
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/10 text-white/90">
+                    <span class="font-medium text-cloudy-200">10:00 AM</span>
+                    <span class="font-semibold text-white">Resume Review</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/25 border border-white/30 text-white shadow-sm">
+                    <span class="font-semibold text-cloudy-100">02:00 PM</span>
+                    <span class="font-bold text-white">1:1 Mock Interview</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-white/10 text-white/90">
+                    <span class="font-medium text-cloudy-200">05:30 PM</span>
+                    <span class="font-semibold text-white">Startup Pitch</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. TODAY'S PLAN COMPACT CARDS -->
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-base font-bold text-darkText">Your Plan for Today</h3>
+                  <p class="text-xs text-mutedText">Upcoming commitments curated for your goals</p>
+                </div>
+                <button onclick="navigateTo('sessions')" class="text-xs font-bold text-cloudy-700 hover:text-cloudy-900 transition">View All →</button>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <!-- Card 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm hover:shadow-md transition space-y-3">
+                  <div class="flex items-center justify-between">
+                    <div class="w-8 h-8 rounded-xl bg-cloudy-100 text-cloudy-700 flex items-center justify-center">
+                      <i data-lucide="file-check" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100">Ready</span>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-darkText">Resume Review</h4>
+                    <p class="text-[11px] text-mutedText">Mentor: Priya Sharma</p>
+                    <p class="text-[11px] font-semibold text-darkText mt-1">10:00 AM (30 min)</p>
+                  </div>
+                  <button onclick="openLiveSession('Resume Review with Priya Sharma')" class="w-full text-xs font-bold py-2 rounded-xl bg-cloudy-50 text-cloudy-800 hover:bg-cloudy-100 border border-cloudy-200/60 transition">
+                    Join Session
+                  </button>
+                </div>
+
+                <!-- Card 2 (Priority) -->
+                <div class="bg-white p-5 rounded-2xl border border-cloudy-300 shadow-sm hover:shadow-md transition space-y-3 relative">
+                  <div class="absolute -top-2.5 right-4 bg-cloudy-800 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accentAmber"></span>
+                    <span>Priority</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="w-8 h-8 rounded-xl bg-cloudy-100 text-cloudy-800 flex items-center justify-center">
+                      <i data-lucide="video" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cloudy-50 text-cloudy-700 border border-cloudy-100">Today</span>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-darkText">1:1 Mock Interview</h4>
+                    <p class="text-[11px] text-mutedText">Mentor: Rahul Mehta</p>
+                    <p class="text-[11px] font-semibold text-darkText mt-1">02:00 PM (45 min)</p>
+                  </div>
+                  <button onclick="openLiveSession('1:1 Mock Interview with Rahul Mehta')" class="w-full text-xs font-bold py-2 rounded-xl bg-cloudy-700 text-white hover:bg-cloudy-800 transition shadow-sm">
+                    View Details
+                  </button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm hover:shadow-md transition space-y-3">
+                  <div class="flex items-center justify-between">
+                    <div class="w-8 h-8 rounded-xl bg-mist-100 text-slate-700 flex items-center justify-center">
+                      <i data-lucide="rocket" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-mist-100 text-slate-600">Pending</span>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-darkText">Startup Pitch</h4>
+                    <p class="text-[11px] text-mutedText">Mentor: Ankit Verma</p>
+                    <p class="text-[11px] font-semibold text-darkText mt-1">05:30 PM (30 min)</p>
+                  </div>
+                  <button onclick="openLiveSession('Pitch Prep with Ankit Verma')" class="w-full text-xs font-bold py-2 rounded-xl bg-canvasBg hover:bg-cloudy-50 text-darkText border border-softBorder transition">
+                    Prepare
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. STREAK & CONSISTENCY (MINIMAL AMBER TOUCH ONLY) -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-softBorder">
+                <div class="flex items-center gap-3">
+                  <!-- Amber restricted strictly to flame badge -->
+                  <div class="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-100 text-accentAmber flex items-center justify-center text-xl shadow-inner">
+                    🔥
+                  </div>
+                  <div>
+                    <h3 class="text-base font-extrabold text-darkText">7 Day Career Streak</h3>
+                    <p class="text-xs text-mutedText">You're building career momentum. Keep showing up every day!</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+                    ✓ Logged In Today
+                  </span>
+                </div>
+              </div>
+
+              <!-- Weekly Days Tracker (Clean Cloudy Slate with Single Amber Spark) -->
+              <div class="pt-5 flex items-center justify-between">
+                <div class="text-center">
+                  <span class="text-[10px] font-bold text-mutedText uppercase block mb-1">M</span>
+                  <div class="w-8 h-8 rounded-full bg-cloudy-700 text-white font-bold text-xs flex items-center justify-center shadow-sm">✓</div>
+                </div>
+                <div class="text-center">
+                  <span class="text-[10px] font-bold text-mutedText uppercase block mb-1">T</span>
+                  <div class="w-8 h-8 rounded-full bg-cloudy-700 text-white font-bold text-xs flex items-center justify-center shadow-sm">✓</div>
+                </div>
+                <div class="text-center">
+                  <span class="text-[10px] font-bold text-mutedText uppercase block mb-1">W</span>
+                  <div class="w-8 h-8 rounded-full bg-cloudy-700 text-white font-bold text-xs flex items-center justify-center shadow-sm">✓</div>
+                </div>
+                <div class="text-center">
+                  <span class="text-[10px] font-bold text-mutedText uppercase block mb-1">T</span>
+                  <div class="w-8 h-8 rounded-full bg-cloudy-700 text-white font-bold text-xs flex items-center justify-center shadow-sm">✓</div>
+                </div>
+                <div class="text-center">
+                  <span class="text-[10px] font-bold text-mutedText uppercase block mb-1">F</span>
+                  <div class="w-8 h-8 rounded-full bg-cloudy-700 text-white font-bold text-xs flex items-center justify-center shadow-sm">✓</div>
+                </div>
+                <div class="text-center">
+                  <span class="text-[10px] font-bold text-mutedText uppercase block mb-1">S</span>
+                  <div class="w-8 h-8 rounded-full bg-cloudy-500 text-white font-bold text-xs flex items-center justify-center shadow-sm">✓</div>
+                </div>
+                <div class="text-center">
+                  <span class="text-[10px] font-bold text-accentAmber uppercase block mb-1">S</span>
+                  <div class="w-8 h-8 rounded-full bg-white border-2 border-accentAmber text-accentAmber font-extrabold text-xs flex items-center justify-center shadow-sm">
+                    🔥
+                  </div>
+                </div>
+              </div>
+
+              <!-- Streak Stats Grid -->
+              <div class="grid grid-cols-3 gap-3 pt-5 mt-5 border-t border-softBorder text-center">
+                <div class="p-2.5 rounded-xl bg-cloudy-50/60 border border-cloudy-100/60">
+                  <p class="text-lg font-extrabold text-darkText">12</p>
+                  <p class="text-[10px] font-semibold text-mutedText uppercase">Sessions Finished</p>
+                </div>
+                <div class="p-2.5 rounded-xl bg-cloudy-50/60 border border-cloudy-100/60">
+                  <p class="text-lg font-extrabold text-darkText">8</p>
+                  <p class="text-[10px] font-semibold text-mutedText uppercase">Mentors Connected</p>
+                </div>
+                <div class="p-2.5 rounded-xl bg-cloudy-50/60 border border-cloudy-100/60">
+                  <p class="text-lg font-extrabold text-darkText">4</p>
+                  <p class="text-[10px] font-semibold text-mutedText uppercase">Opportunities Won</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. MENTORSHIP JOURNEY PIPELINE -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm">
+              <h3 class="text-base font-bold text-darkText mb-1">Your Mentorship Journey</h3>
+              <p class="text-xs text-mutedText mb-5">Current level: Stage 3 — Interview Refinement</p>
+
+              <!-- Progress Stage Stepper in Cloudy Blues -->
+              <div class="grid grid-cols-5 gap-2 text-center text-xs">
+                <div class="space-y-2">
+                  <div class="h-2 rounded-full bg-cloudy-700"></div>
+                  <span class="text-[11px] font-bold text-darkText">Explore</span>
+                </div>
+                <div class="space-y-2">
+                  <div class="h-2 rounded-full bg-cloudy-700"></div>
+                  <span class="text-[11px] font-bold text-darkText">Connect</span>
+                </div>
+                <div class="space-y-2">
+                  <div class="h-2 rounded-full bg-cloudy-500 animate-pulse"></div>
+                  <span class="text-[11px] font-bold text-cloudy-700">1st Session</span>
+                </div>
+                <div class="space-y-2">
+                  <div class="h-2 rounded-full bg-cloudy-100"></div>
+                  <span class="text-[11px] font-medium text-mutedText">Build Skills</span>
+                </div>
+                <div class="space-y-2">
+                  <div class="h-2 rounded-full bg-cloudy-100"></div>
+                  <span class="text-[11px] font-medium text-mutedText">Unlock Offers</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. RECOMMENDED MENTORS -->
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-base font-bold text-darkText">Mentors You May Like</h3>
+                  <p class="text-xs text-mutedText">Based on your target role: Product Engineer & PM</p>
+                </div>
+                <button onclick="navigateTo('mentors')" class="text-xs font-bold text-cloudy-700 hover:text-cloudy-900 transition">Explore All Mentors →</button>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Mentor 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm hover:shadow-md transition space-y-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-cloudy-100 text-cloudy-800 font-extrabold flex items-center justify-center text-sm">
+                      AM
+                    </div>
+                    <div>
+                      <h4 class="text-xs font-bold text-darkText">Aarav Mehta</h4>
+                      <p class="text-[11px] text-mutedText">Product Manager @ Google</p>
+                      <div class="flex items-center gap-1 text-[11px] text-cloudy-700 font-bold mt-0.5">
+                        <span class="text-accentAmber">★</span>
+                        <span>4.9</span>
+                        <span class="text-mutedText font-normal">• 120+ sessions</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 text-[10px]">
+                    <span class="px-2 py-0.5 rounded-md bg-cloudy-50 text-cloudy-700 font-medium">Product</span>
+                    <span class="px-2 py-0.5 rounded-md bg-cloudy-50 text-cloudy-700 font-medium">Roadmaps</span>
+                    <span class="px-2 py-0.5 rounded-md bg-cloudy-50 text-cloudy-700 font-medium">Interviews</span>
+                  </div>
+                  <div class="pt-2 flex items-center gap-2">
+                    <button onclick="openRequestModal('Aarav Mehta', 'Product Manager @ Google')" class="flex-1 py-2 rounded-xl bg-cloudy-100 hover:bg-cloudy-200 text-cloudy-900 font-bold text-xs transition">
+                      Request Session
+                    </button>
+                    <button onclick="openChatWith('Aarav Mehta')" class="p-2 rounded-xl bg-canvasBg hover:bg-cloudy-50 text-mutedText transition border border-softBorder">
+                      <i data-lucide="message-square" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Mentor 2 -->
+                <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm hover:shadow-md transition space-y-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-cloudy-100 text-cloudy-800 font-extrabold flex items-center justify-center text-sm">
+                      NK
+                    </div>
+                    <div>
+                      <h4 class="text-xs font-bold text-darkText">Neha Kulkarni</h4>
+                      <p class="text-[11px] text-mutedText">Lead System Architect @ Microsoft</p>
+                      <div class="flex items-center gap-1 text-[11px] text-cloudy-700 font-bold mt-0.5">
+                        <span class="text-accentAmber">★</span>
+                        <span>5.0</span>
+                        <span class="text-mutedText font-normal">• 94 sessions</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 text-[10px]">
+                    <span class="px-2 py-0.5 rounded-md bg-cloudy-50 text-cloudy-700 font-medium">Backend</span>
+                    <span class="px-2 py-0.5 rounded-md bg-cloudy-50 text-cloudy-700 font-medium">Distributed Sys</span>
+                    <span class="px-2 py-0.5 rounded-md bg-cloudy-50 text-cloudy-700 font-medium">Scale</span>
+                  </div>
+                  <div class="pt-2 flex items-center gap-2">
+                    <button onclick="openRequestModal('Neha Kulkarni', 'Lead Architect @ Microsoft')" class="flex-1 py-2 rounded-xl bg-cloudy-100 hover:bg-cloudy-200 text-cloudy-900 font-bold text-xs transition">
+                      Request Session
+                    </button>
+                    <button onclick="openChatWith('Neha Kulkarni')" class="p-2 rounded-xl bg-canvasBg hover:bg-cloudy-50 text-mutedText transition border border-softBorder">
+                      <i data-lucide="message-square" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. PERSONALIZED OPPORTUNITIES -->
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-base font-bold text-darkText">Picked For You 🎯</h3>
+                  <p class="text-xs text-mutedText">Curated by Shambhavi AI matching algorithm</p>
+                </div>
+                <button onclick="navigateTo('opportunities')" class="text-xs font-bold text-cloudy-700 hover:text-cloudy-900 transition">All Opportunities →</button>
+              </div>
+
+              <div class="space-y-3">
+                <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-cloudy-100 text-cloudy-800">Internship</span>
+                      <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">95% Match</span>
+                    </div>
+                    <h4 class="text-sm font-bold text-darkText">Product Management Intern — Summer 2025</h4>
+                    <p class="text-xs text-mutedText">Razorpay • Deadline: in 6 days</p>
+                    <p class="text-[11px] text-cloudy-700 font-medium pt-0.5">Why recommended: High score in product case study & portfolio match.</p>
+                  </div>
+                  <button onclick="showToast('Application drafted for Razorpay PM internship.')" class="px-5 py-2.5 rounded-xl bg-cloudy-800 hover:bg-cloudy-900 text-white font-semibold text-xs transition flex-shrink-0">
+                    Apply Now
+                  </button>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                      <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-cloudy-100 text-cloudy-800">Grant</span>
+                      <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">92% Match</span>
+                    </div>
+                    <h4 class="text-sm font-bold text-darkText">Startup India Student Innovation Micro-Grant (₹2.5 Lakhs)</h4>
+                    <p class="text-xs text-mutedText">Govt of India Innovation Cell • Deadline: Oct 30</p>
+                    <p class="text-[11px] text-cloudy-700 font-medium pt-0.5">Why recommended: Campus SaaS venture detected in your portfolio tracker.</p>
+                  </div>
+                  <button onclick="showToast('Opened grant application guidelines.')" class="px-5 py-2.5 rounded-xl bg-cloudy-100 hover:bg-cloudy-200 text-cloudy-900 font-bold text-xs transition flex-shrink-0 border border-cloudy-200">
+                    Review Pitch
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN WIDGETS (4 COLS) -->
+          <div class="lg:col-span-4 space-y-6">
+            
+            <!-- Widget 1: Next Immediate Session -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-darkText uppercase tracking-wider">Next Session</span>
+                <span class="text-[10px] font-bold text-cloudy-800 bg-cloudy-100 px-2.5 py-0.5 rounded-full">In 3 hours</span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-cloudy-800 text-white font-bold text-base flex items-center justify-center shadow-sm">
+                  RM
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">Rahul Mehta</h4>
+                  <p class="text-xs text-mutedText">Senior Product Manager</p>
+                  <p class="text-xs font-semibold text-cloudy-700 mt-0.5">1:1 Mock Interview</p>
+                </div>
+              </div>
+
+              <div class="p-3 bg-cloudy-50/70 rounded-xl flex items-center justify-between text-xs border border-cloudy-100/60">
+                <span class="text-mutedText">Time Slot</span>
+                <span class="font-bold text-darkText">Today, 2:00 PM IST</span>
+              </div>
+
+              <div class="space-y-2">
+                <button onclick="openLiveSession('1:1 Mock Interview with Rahul Mehta')" class="w-full py-2.5 rounded-xl bg-cloudy-800 hover:bg-cloudy-900 text-white font-bold text-xs transition shadow-sm">
+                  Join Session Link
+                </button>
+                <button onclick="openChatWith('Rahul Mehta')" class="w-full py-2.5 rounded-xl bg-cloudy-50 hover:bg-cloudy-100 text-cloudy-900 font-semibold text-xs transition border border-cloudy-100">
+                  Message Mentor
+                </button>
+              </div>
+            </div>
+
+            <!-- Widget 2: Resume Score Card -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold text-darkText uppercase tracking-wider">Your Resume</h4>
+                <span class="text-[10px] font-bold text-mutedText">Updated 2d ago</span>
+              </div>
+
+              <div class="flex items-baseline justify-between">
+                <div>
+                  <span class="text-3xl font-extrabold text-cloudy-900">82</span>
+                  <span class="text-xs font-bold text-mutedText">/100</span>
+                </div>
+                <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">+4 pts this week</span>
+              </div>
+
+              <!-- Bar in Cloudy Blue Accent -->
+              <div class="w-full h-2 rounded-full bg-cloudy-100 overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-cloudy-600 to-cloudy-400 w-[82%]"></div>
+              </div>
+
+              <div class="space-y-1.5 text-xs">
+                <p class="text-[11px] text-mutedText flex items-center gap-1.5">
+                  <i data-lucide="info" class="w-3.5 h-3.5 text-cloudy-500"></i>
+                  <span>3 improvements suggested by AI reviewer</span>
+                </p>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 pt-1">
+                <button onclick="navigateTo('resume')" class="py-2 rounded-xl bg-canvasBg hover:bg-cloudy-50 text-darkText text-xs font-semibold transition text-center border border-softBorder">
+                  Preview
+                </button>
+                <button onclick="navigateTo('resume')" class="py-2 rounded-xl bg-cloudy-100 text-cloudy-900 hover:bg-cloudy-200 text-xs font-bold transition text-center border border-cloudy-200">
+                  Improve Now
+                </button>
+              </div>
+            </div>
+
+            <!-- Widget 3: Opportunity Alert (Pure White & Mist Cloudy Theme) -->
+            <div class="bg-gradient-to-br from-cloudy-50 via-white to-white p-6 rounded-3xl border border-cloudy-200 shadow-sm space-y-3">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-cloudy-700 text-white flex items-center justify-center">
+                  <i data-lucide="bell" class="w-3 h-3"></i>
+                </div>
+                <h4 class="text-xs font-bold text-cloudy-900 uppercase">Opportunity Alert 🚀</h4>
+              </div>
+
+              <h5 class="text-sm font-bold text-darkText">Startup India Student Challenge 2025</h5>
+              <p class="text-xs text-mutedText leading-relaxed">
+                Equity-free grants of ₹5,00,000 for verified campus innovations.
+              </p>
+
+              <div class="flex items-center justify-between pt-1">
+                <span class="text-xs font-bold text-cloudy-700">92% Match Score</span>
+                <button onclick="navigateTo('opportunities')" class="px-3.5 py-1.5 rounded-lg bg-cloudy-700 text-white text-xs font-bold hover:bg-cloudy-800 transition">
+                  Explore →
+                </button>
+              </div>
+            </div>
+
+            <!-- Widget 4: Mini Profile Completion -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-darkText uppercase">Profile Strength</span>
+                <span class="text-xs font-bold text-cloudy-800">78%</span>
+              </div>
+
+              <div class="w-full h-2 rounded-full bg-cloudy-100 overflow-hidden">
+                <div class="h-full rounded-full bg-cloudy-600 w-[78%]"></div>
+              </div>
+
+              <p class="text-[11px] text-mutedText">
+                Add 1 recommendation letter to unlock top-tier verified alumni mentors.
+              </p>
+
+              <button onclick="showToast('Profile wizard initiated.')" class="w-full py-2 rounded-xl border border-cloudy-200 hover:border-cloudy-400 text-cloudy-900 text-xs font-semibold transition">
+                Complete Profile
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 2: FIND MENTORS DIRECTORY                         -->
+      <!-- ====================================================== -->
+      <section id="view-mentors" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-6xl mx-auto space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-darkText">Discover Verified Mentors</h2>
+              <p class="text-xs text-mutedText">Connect 1:1 with industry leaders from your institutional alumni network</p>
+            </div>
+            <!-- Search Filter -->
+            <div class="flex items-center gap-2">
+              <select class="text-xs rounded-xl border border-softBorder p-2.5 bg-white text-darkText">
+                <option>All Roles</option>
+                <option>Product Manager</option>
+                <option>Software Architect</option>
+                <option>Founder / Angel</option>
+              </select>
+              <select class="text-xs rounded-xl border border-softBorder p-2.5 bg-white text-darkText">
+                <option>All Companies</option>
+                <option>Google</option>
+                <option>Microsoft</option>
+                <option>Atlassian</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Mentors Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Mentor Card 1 -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-cloudy-100 text-cloudy-800 font-bold flex items-center justify-center">AM</div>
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">Aarav Mehta</h4>
+                  <p class="text-xs text-mutedText">Product Manager @ Google</p>
+                  <p class="text-[11px] text-cloudy-700 font-bold"><span class="text-accentAmber">★</span> 4.9 (120+ sessions)</p>
+                </div>
+              </div>
+              <p class="text-xs text-mutedText leading-relaxed">
+                Helped 40+ engineering juniors transition into Tier-1 APM and PM roles. Expert in system breakdowns.
+              </p>
+              <div class="flex flex-wrap gap-1 text-[10px]">
+                <span class="px-2 py-0.5 rounded bg-cloudy-50 text-cloudy-700 font-medium">Product</span>
+                <span class="px-2 py-0.5 rounded bg-cloudy-50 text-cloudy-700 font-medium">Interviews</span>
+              </div>
+              <button onclick="openRequestModal('Aarav Mehta', 'PM @ Google')" class="w-full py-2.5 rounded-xl bg-cloudy-800 text-white text-xs font-bold hover:bg-cloudy-900 transition">
+                Request Mentorship
+              </button>
+            </div>
+
+            <!-- Mentor Card 2 -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-cloudy-100 text-cloudy-800 font-bold flex items-center justify-center">PS</div>
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">Priya Sharma</h4>
+                  <p class="text-xs text-mutedText">Senior SDE @ Atlassian</p>
+                  <p class="text-[11px] text-cloudy-700 font-bold"><span class="text-accentAmber">★</span> 5.0 (85 sessions)</p>
+                </div>
+              </div>
+              <p class="text-xs text-mutedText leading-relaxed">
+                Specializes in resume critique, algorithmic problem solving and distributed backends.
+              </p>
+              <div class="flex flex-wrap gap-1 text-[10px]">
+                <span class="px-2 py-0.5 rounded bg-cloudy-50 text-cloudy-700 font-medium">Java</span>
+                <span class="px-2 py-0.5 rounded bg-cloudy-50 text-cloudy-700 font-medium">System Design</span>
+              </div>
+              <button onclick="openRequestModal('Priya Sharma', 'Senior SDE @ Atlassian')" class="w-full py-2.5 rounded-xl bg-cloudy-800 text-white text-xs font-bold hover:bg-cloudy-900 transition">
+                Request Mentorship
+              </button>
+            </div>
+
+            <!-- Mentor Card 3 -->
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-cloudy-100 text-cloudy-800 font-bold flex items-center justify-center">AV</div>
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">Ankit Verma</h4>
+                  <p class="text-xs text-mutedText">Founder @ CloudScale (YC W22)</p>
+                  <p class="text-[11px] text-cloudy-700 font-bold"><span class="text-accentAmber">★</span> 4.8 (42 sessions)</p>
+                </div>
+              </div>
+              <p class="text-xs text-mutedText leading-relaxed">
+                Early-stage startup mentorship, seed fundraising strategy, and campus venture pitch evaluations.
+              </p>
+              <div class="flex flex-wrap gap-1 text-[10px]">
+                <span class="px-2 py-0.5 rounded bg-cloudy-50 text-cloudy-700 font-medium">Startups</span>
+                <span class="px-2 py-0.5 rounded bg-cloudy-50 text-cloudy-700 font-medium">Venture Capital</span>
+              </div>
+              <button onclick="openRequestModal('Ankit Verma', 'Founder @ CloudScale')" class="w-full py-2.5 rounded-xl bg-cloudy-800 text-white text-xs font-bold hover:bg-cloudy-900 transition">
+                Request Mentorship
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 3: MESSAGES & CHAT                                -->
+      <!-- ====================================================== -->
+      <section id="view-messages" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-6xl mx-auto bg-white rounded-3xl border border-softBorder shadow-sm overflow-hidden flex h-[620px]">
+          <!-- Contacts List -->
+          <div class="w-80 border-r border-softBorder flex flex-col">
+            <div class="p-4 border-b border-softBorder">
+              <h3 class="text-sm font-bold text-darkText">Mentorship Messages</h3>
+            </div>
+            <div class="flex-1 overflow-y-auto custom-scroll p-2 space-y-1">
+              <div onclick="selectChat('Rahul Mehta', 'Senior PM @ Google')" class="p-3 rounded-2xl bg-cloudy-50 border border-cloudy-100 cursor-pointer flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-cloudy-700 text-white font-bold flex items-center justify-center text-xs">RM</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <p class="text-xs font-bold text-darkText truncate">Rahul Mehta</p>
+                    <span class="text-[10px] text-mutedText">12:30</span>
+                  </div>
+                  <p class="text-[11px] text-darkText font-medium truncate">Looking forward to our mock session!</p>
+                </div>
+              </div>
+
+              <div onclick="selectChat('Priya Sharma', 'SDE @ Atlassian')" class="p-3 rounded-2xl hover:bg-cloudy-50/50 cursor-pointer flex items-center gap-3 transition">
+                <div class="w-10 h-10 rounded-full bg-cloudy-400 text-white font-bold flex items-center justify-center text-xs">PS</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <p class="text-xs font-bold text-darkText truncate">Priya Sharma</p>
+                    <span class="text-[10px] text-mutedText">Yesterday</span>
+                  </div>
+                  <p class="text-[11px] text-mutedText truncate">I left comments on your project summary.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Conversation -->
+          <div class="flex-1 flex flex-col justify-between bg-cloudy-50/30">
+            <!-- Chat Header -->
+            <div class="p-4 bg-white border-b border-softBorder flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div id="chat-header-avatar" class="w-9 h-9 rounded-full bg-cloudy-700 text-white font-bold text-xs flex items-center justify-center">RM</div>
+                <div>
+                  <h4 id="chat-header-name" class="text-xs font-bold text-darkText">Rahul Mehta</h4>
+                  <p id="chat-header-role" class="text-[10px] text-emerald-600 font-semibold">● Online • Senior PM @ Google</p>
+                </div>
+              </div>
+              <button onclick="openLiveSession('Rahul Mehta')" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-cloudy-50 text-cloudy-800 hover:bg-cloudy-100 transition flex items-center gap-1.5 border border-cloudy-200">
+                <i data-lucide="video" class="w-3.5 h-3.5"></i>
+                <span>Start Video Room</span>
+              </button>
+            </div>
+
+            <!-- Messages Thread -->
+            <div id="chat-messages-container" class="flex-1 p-6 overflow-y-auto space-y-3 text-xs custom-scroll">
+              <div class="flex justify-start">
+                <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-softBorder max-w-sm text-darkText shadow-sm">
+                  Hi Shambhav! Reviewed your initial resume draft. The metrics in your hackathon project look super solid.
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <div class="bg-cloudy-700 text-white p-3.5 rounded-2xl rounded-tr-none max-w-sm shadow-sm">
+                  Thanks Rahul! Excited for our 2:00 PM session today. Should I prepare system design architecture diagrams?
+                </div>
+              </div>
+              <div class="flex justify-start">
+                <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-softBorder max-w-sm text-darkText shadow-sm">
+                  Yes, have your cache invalidation flow ready. See you shortly!
+                </div>
+              </div>
+            </div>
+
+            <!-- Input Bar -->
+            <form onsubmit="sendChatMessage(event)" class="p-3 bg-white border-t border-softBorder flex items-center gap-2">
+              <input id="chat-input" type="text" placeholder="Type a message or share your resume link..." class="flex-1 text-xs border border-softBorder rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-cloudy-300" />
+              <button type="submit" class="bg-cloudy-800 hover:bg-cloudy-900 text-white p-2.5 rounded-xl transition">
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 4: MY SESSIONS                                    -->
+      <!-- ====================================================== -->
+      <section id="view-sessions" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-darkText">Mentorship Sessions</h2>
+              <p class="text-xs text-mutedText">Manage your upcoming and completed 1-to-1 appointments</p>
+            </div>
+            <button onclick="navigateTo('mentors')" class="px-4 py-2 rounded-xl bg-cloudy-800 text-white text-xs font-bold hover:bg-cloudy-900 transition">
+              + Book New Session
+            </button>
+          </div>
+
+          <!-- Tabs -->
+          <div class="flex items-center gap-4 border-b border-softBorder text-xs font-bold text-mutedText pb-2">
+            <button class="text-cloudy-800 border-b-2 border-cloudy-800 pb-2">Upcoming (3)</button>
+            <button class="hover:text-darkText pb-2">Completed (12)</button>
+            <button class="hover:text-darkText pb-2">Cancelled (0)</button>
+          </div>
+
+          <!-- Session List -->
+          <div class="space-y-3">
+            <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-cloudy-100 text-cloudy-800 font-bold flex items-center justify-center">RM</div>
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">1:1 Mock System Design Interview</h4>
+                  <p class="text-xs text-mutedText">Rahul Mehta (Senior PM @ Google)</p>
+                  <p class="text-xs font-semibold text-cloudy-700 mt-0.5">Today • 02:00 PM - 02:45 PM IST</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="openChatWith('Rahul Mehta')" class="px-4 py-2 rounded-xl bg-canvasBg hover:bg-cloudy-50 text-darkText text-xs font-semibold transition border border-softBorder">Message</button>
+                <button onclick="openLiveSession('Mock Interview with Rahul Mehta')" class="px-4 py-2 rounded-xl bg-cloudy-800 hover:bg-cloudy-900 text-white text-xs font-bold transition">Join Room</button>
+              </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-softBorder shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-cloudy-100 text-cloudy-800 font-bold flex items-center justify-center">PS</div>
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">Quarterly Career Roadmap & Resume Review</h4>
+                  <p class="text-xs text-mutedText">Priya Sharma (Atlassian)</p>
+                  <p class="text-xs font-semibold text-cloudy-700 mt-0.5">Tomorrow • 10:00 AM - 10:30 AM IST</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="openChatWith('Priya Sharma')" class="px-4 py-2 rounded-xl bg-canvasBg hover:bg-cloudy-50 text-darkText text-xs font-semibold transition border border-softBorder">Message</button>
+                <button onclick="showToast('Calendar invite sent to email.')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-darkText text-xs font-semibold transition">Add Calendar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 5: RESUME MANAGEMENT                              -->
+      <!-- ====================================================== -->
+      <section id="view-resume" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-darkText">Resume Command Center</h2>
+              <p class="text-xs text-mutedText">Preview, evaluate, and share your verified academic CV with mentors</p>
+            </div>
+            <button onclick="showToast('New resume PDF version uploaded & parsed.')" class="px-4 py-2 rounded-xl bg-cloudy-900 text-white text-xs font-semibold hover:bg-cloudy-950 transition">
+              + Upload New Version
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <!-- Left: Document Preview -->
+            <div class="md:col-span-7 bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+              <div class="flex items-center justify-between pb-3 border-b border-softBorder">
+                <span class="text-xs font-bold text-darkText">Shambhav_Software_PM_2025.pdf</span>
+                <span class="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">Verified</span>
+              </div>
+              <div class="h-96 rounded-2xl bg-cloudy-50/50 border border-dashed border-cloudy-200 flex flex-col items-center justify-center p-6 text-center space-y-3">
+                <i data-lucide="file-text" class="w-12 h-12 text-cloudy-600"></i>
+                <div>
+                  <h4 class="text-sm font-bold text-darkText">Shambhav • CS Engineering</h4>
+                  <p class="text-xs text-mutedText">Specialization: Distributed Systems & Product Innovation</p>
+                </div>
+                <div class="flex gap-2">
+                  <button onclick="showToast('Resume downloaded to local device.')" class="px-4 py-1.5 rounded-lg bg-white border border-softBorder text-xs font-semibold hover:bg-slate-50 transition">Download</button>
+                  <button onclick="showToast('Link generated & copied to clipboard.')" class="px-4 py-1.5 rounded-lg bg-cloudy-700 text-white text-xs font-semibold hover:bg-cloudy-800 transition">Share With Mentor</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: AI Evaluation Diagnostics -->
+            <div class="md:col-span-5 space-y-4">
+              <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-4">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-darkText">Resume Score Analysis</h3>
+                <div class="flex items-center gap-3">
+                  <span class="text-4xl font-extrabold text-cloudy-800">82</span>
+                  <span class="text-xs text-mutedText">Top 15% across computer science cohorts</span>
+                </div>
+                <div class="space-y-2 text-xs">
+                  <div class="p-2.5 rounded-xl bg-emerald-50 text-emerald-800 font-medium">✓ Strong technical projects section</div>
+                  <div class="p-2.5 rounded-xl bg-cloudy-50 text-cloudy-900 font-medium border border-cloudy-100">ℹ Improve quantifiable achievement metrics</div>
+                  <div class="p-2.5 rounded-xl bg-cloudy-50 text-cloudy-900 font-medium border border-cloudy-100">ℹ Add measurable impact to leadership section</div>
+                  <div class="p-2.5 rounded-xl bg-emerald-50 text-emerald-800 font-medium">✓ Verified university GPA and bonafide anchor</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 6: OPPORTUNITIES                                  -->
+      <!-- ====================================================== -->
+      <section id="view-opportunities" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <div>
+            <h2 class="text-xl font-bold text-darkText">Personalized Opportunities Hub</h2>
+            <p class="text-xs text-mutedText">Filtered according to your skill ratings and mentor suggestions</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-3">
+              <div class="flex justify-between items-start">
+                <span class="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-cloudy-100 text-cloudy-800">Summer Internship</span>
+                <span class="text-xs font-bold text-emerald-600">95% Match</span>
+              </div>
+              <h3 class="text-sm font-bold text-darkText">Associate Product Manager Intern</h3>
+              <p class="text-xs text-mutedText">Swiggy • Bangalore • ₹60,000 / month</p>
+              <p class="text-[11px] text-mutedText">Deadline: 5 days remaining</p>
+              <button onclick="showToast('Application portal opened.')" class="w-full py-2.5 rounded-xl bg-cloudy-800 text-white text-xs font-bold hover:bg-cloudy-900 transition">
+                Apply Directly
+              </button>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl border border-softBorder shadow-sm space-y-3">
+              <div class="flex justify-between items-start">
+                <span class="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-cloudy-100 text-cloudy-800">Campus Grant</span>
+                <span class="text-xs font-bold text-emerald-600">91% Match</span>
+              </div>
+              <h3 class="text-sm font-bold text-darkText">Alumni Angel Micro-Grant ₹2,00,000</h3>
+              <p class="text-xs text-mutedText">Autonomous Campus Seed Pool</p>
+              <p class="text-[11px] text-mutedText">Deadline: Rolling submissions</p>
+              <button onclick="showToast('Pitch deck submission form opened.')" class="w-full py-2.5 rounded-xl bg-cloudy-700 text-white text-xs font-bold hover:bg-cloudy-800 transition">
+                Submit Pitch
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- VIEW 7: PROGRESS & STREAK DETAILED                      -->
+      <!-- ====================================================== -->
+      <section id="view-progress" class="dashboard-view p-8 flex-1 hidden">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <div>
+            <h2 class="text-xl font-bold text-darkText">Career Trajectory & Analytics</h2>
+            <p class="text-xs text-mutedText">Consistent daily execution maps into life-changing career placements</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+            <div class="bg-white p-5 rounded-2xl border border-softBorder">
+              <p class="text-2xl font-extrabold text-cloudy-800">7 Days</p>
+              <p class="text-xs text-mutedText mt-1">Current Streak</p>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-softBorder">
+              <p class="text-2xl font-extrabold text-darkText">18 Days</p>
+              <p class="text-xs text-mutedText mt-1">Longest Streak</p>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-softBorder">
+              <p class="text-2xl font-extrabold text-darkText">12</p>
+              <p class="text-xs text-mutedText mt-1">Sessions Done</p>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-softBorder">
+              <p class="text-2xl font-extrabold text-emerald-600">94%</p>
+              <p class="text-xs text-mutedText mt-1">Mentor Feedback Rating</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: REQUEST A SESSION                                 -->
+  <!-- ======================================================== -->
+  <div id="request-modal" class="fixed inset-0 z-50 hidden bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative border border-cloudy-100">
+      <button onclick="closeRequestModal()" class="absolute top-5 right-5 text-mutedText hover:text-darkText">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-5">
+        <h3 class="text-lg font-bold text-darkText">Request a Session</h3>
+        <p id="modal-mentor-target" class="text-xs text-mutedText">Mentor: Aarav Mehta</p>
+      </div>
+
+      <form onsubmit="handleSendRequest(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-darkText uppercase mb-1">Session Type</label>
+          <select class="w-full rounded-xl border border-softBorder p-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-cloudy-300">
+            <option>Resume Review</option>
+            <option>1:1 Mock Interview</option>
+            <option>Career Guidance</option>
+            <option>Startup Advice</option>
+            <option>Funding / Pitch Feedback</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-darkText uppercase mb-1">Preferred Date & Time</label>
+          <input type="datetime-local" required class="w-full rounded-xl border border-softBorder p-2.5 focus:outline-none focus:ring-2 focus:ring-cloudy-300" />
+        </div>
+
+        <div>
+          <label class="block font-bold text-darkText uppercase mb-1">Tell the mentor what you'd like help with</label>
+          <textarea rows="3" placeholder="e.g. Preparing for Tier-1 Product APM interviews, need critique on problem solving framework." required class="w-full rounded-xl border border-softBorder p-2.5 focus:outline-none focus:ring-2 focus:ring-cloudy-300"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-full bg-cloudy-800 hover:bg-cloudy-900 text-white font-bold transition shadow-md shadow-cloudy-900/10">
+          Send Request
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-cloudy-950 text-white text-xs px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 border border-cloudy-800">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-msg">Action confirmed!</span>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT: LOGIC & TAB ROUTING                          -->
+  <!-- ======================================================== -->
+  <script>
+    lucide.createIcons();
+
+    // 1. Single Page View Router
+    function navigateTo(viewName) {
+      document.querySelectorAll('.dashboard-view').forEach(view => view.classList.add('hidden'));
+      document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active-nav'));
+
+      const targetView = document.getElementById(`view-${viewName}`);
+      const targetNav = document.getElementById(`nav-${viewName}`);
+
+      if (targetView) targetView.classList.remove('hidden');
+      if (targetNav) targetNav.classList.add('active-nav');
+      lucide.createIcons();
+    }
+
+    // 2. Notification Panel Toggle
+    function toggleNotificationPanel() {
+      const panel = document.getElementById('notif-panel');
+      panel.classList.toggle('hidden');
+    }
+
+    // 3. Mentorship Request Modal
+    const requestModal = document.getElementById('request-modal');
+    function openRequestModal(mentorName, mentorRole) {
+      document.getElementById('modal-mentor-target').innerText = `Mentor: ${mentorName} (${mentorRole})`;
+      requestModal.classList.remove('hidden');
+    }
+    function closeRequestModal() {
+      requestModal.classList.add('hidden');
+    }
+    function handleSendRequest(e) {
+      e.preventDefault();
+      closeRequestModal();
+      showToast("Request Sent ✓ Mentor notified via institutional email.");
+    }
+
+    // 4. Toast Notification
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    // 5. Open Direct Video Room
+    function openLiveSession(title) {
+      showToast(`Entering room: "${title}". Google Meet channel sync initiated!`);
+    }
+
+    // 6. Direct Chat Switcher
+    function openChatWith(name) {
+      navigateTo('messages');
+      selectChat(name, 'Verified Senior Mentor');
+    }
+
+    function selectChat(name, role) {
+      document.getElementById('chat-header-name').innerText = name;
+      document.getElementById('chat-header-role').innerText = `● Online • ${role}`;
+      document.getElementById('chat-header-avatar').innerText = name.split(' ').map(n=>n[0]).join('');
+    }
+
+    function sendChatMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('chat-messages-container');
+      const newMsg = document.createElement('div');
+      newMsg.className = "flex justify-end";
+      newMsg.innerHTML = `<div class="bg-cloudy-700 text-white p-3.5 rounded-2xl rounded-tr-none max-w-sm shadow-sm">${text}</div>`;
+      container.appendChild(newMsg);
+      input.value = "";
+      container.scrollTop = container.scrollHeight;
+    }
+  </script>
+</body>
+</html>
